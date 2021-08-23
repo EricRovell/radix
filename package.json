@@ -32,10 +32,10 @@
     "@typescript-eslint/parser": "^4.29.2",
     "eslint": "^7.32.0",
     "jest": "^27.0.6",
-    "rollup": "^2.56.2",
+    "rollup": "^2.56.3",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
-    "ts-jest": "^27.0.4",
+    "ts-jest": "^27.0.5",
     "tslib": "^2.3.1",
     "typescript": "^4.3.5"
   },
@@ -52,5 +52,6 @@
   },
   "engines": {
     "node": ">=12.0"
-  }
+  },
+  "sideEffects": false
 }
