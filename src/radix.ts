@@ -11,8 +11,9 @@ export class Radix {
 
 	constructor(ranks: number[], radix: number) {
 		this.checkStatus = checkNumber(ranks, radix);
-		this.digits = ranks;
-		this.base = radix;
+		[ this.digits, this.base ] = this.checkStatus
+			? [ ranks, radix ]
+			: [ [ 0 ], 2 ];
 	}
 
 	/**
