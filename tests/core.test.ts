@@ -24,6 +24,23 @@ describe("Properties", () => {
 			}
 		}
 	});
+	it("Checks if the input ranks are correct", () => {
+		expect(radix([ 1, 1, 0 ], 2).valid).toBe(true);
+		expect(radix([ 0, 1, 2, 8 ], 8).valid).toBe(false);
+		expect(radix([ 0, 1, 2, -7 ], 8).valid).toBe(false);
+		expect(radix([ 0, 1.5, 2, 4 ], 8).valid).toBe(false);
+		// @ts-expect-error
+		expect(radix([ "2", 1, 0 ], 2).valid).toBe(false);
+	});
+	it("Checks if the input radix is correct", () => {
+		expect(radix([ 1, 1, 0 ], 2).valid).toBe(true);
+		expect(radix([ 1, 1, 0 ], 1.5).valid).toBe(false);
+		expect(radix([ 0, 1, 2, 8 ], 0).valid).toBe(false);
+		expect(radix([ 0, 1, 2, 8 ], 1).valid).toBe(false);
+		expect(radix([ 0, 1, 2, 8 ], -1).valid).toBe(false);
+		// @ts-expect-error
+		expect(radix([ 0, 1, 2, -7 ], "8").valid).toBe(false);
+	});
 });
 
 describe("Transformations", () => {
