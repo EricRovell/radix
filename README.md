@@ -82,7 +82,7 @@ npm i @ericrovell/radix
 ```ts
 import { radix } from "@ericrovell/radix";
 
-radix([ 1, 0, 1, 0], 2).decimalNumber // -> 10
+radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
 ```
 
 ## API
@@ -97,7 +97,7 @@ radix([ 1, 0, 1, 0], 2).decimalNumber // -> 10
   Constructs a number from given ranks and specified radix.
 
   ```ts
-	radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).decimalNumber // -> 77
+	radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).asDecimal // -> 77
   ```
 </details>
 
