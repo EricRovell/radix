@@ -1,15 +1,25 @@
 import { radixTransform } from "@util/radixTransform";
+import { checkNumber } from "./lib/check-number";
 
 /**
  * Provides functionality to store, transform, and manipulate number with different radixes.
  */
 export class Radix {
+	private readonly checkStatus: boolean;
 	private readonly digits: number[];
 	private readonly base: number;
 
 	constructor(ranks: number[], radix: number) {
+		this.checkStatus = checkNumber(ranks, radix);
 		this.digits = ranks;
 		this.base = radix;
+	}
+
+	/**
+	 * Returns the boolean indicating whether or not the input was valid.
+	 */
+	get valid(): boolean {
+		return this.checkStatus;
 	}
 
 	/**
