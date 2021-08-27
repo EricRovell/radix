@@ -82,7 +82,7 @@ npm i @ericrovell/radix
 ```ts
 import { radix } from "@ericrovell/radix";
 
-radix([ 1, 0, 1, 0], 2).decimalNumber // -> 10
+radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
 ```
 
 ## API
@@ -95,13 +95,38 @@ radix([ 1, 0, 1, 0], 2).decimalNumber // -> 10
   </summary>
 
   Constructs a number from given ranks and specified radix.
+  The input is validated, more about the validation rules in `.valid` property description.
+
+  In case of invalid input the fallback is number 0 in binary system.
 
   ```ts
-	radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).decimalNumber // -> 77
+	radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).asDecimal // -> 77
+  radix([ 5, 0 ], 2).asDecimal // -> 0, invalid input
   ```
 </details>
 
 ### Properties
+
+<details>
+  <summary>
+    <code>.valid</code>
+  </summary>
+
+  Returns the boolean indicating whether or not the input was valid.
+
+  Radix should be positive integer equal or larger than 2. Unary base system's are not supported.
+  It complicated the code too much and too primitive to be practical.
+
+  Each rank should be non-negative integer and have a value less than radix.
+
+  ```ts
+	radix([ 1, 1, 0 ], 2).valid    // -> true
+  radix([ 0, 1, 2, 8 ], 8).valid // -> false, rank can't be 8 for the base 8
+  radix([ 1, 1, 0 ], 2).valid    // -> true
+  radix([ 1, 1, 0 ], 1.5).valid  // -> false, radix should be an integer
+  radix([ 0, 1, 2, 8 ], 0).valid // -> false, radix should be a positive integer
+  ```
+</details>
 
 <details>
   <summary>
