@@ -100,7 +100,7 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   In case of invalid input the fallback is number 0 in binary system.
 
   ```ts
-	radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).asDecimal // -> 77
+  radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).asDecimal // -> 77
   radix([ 5, 0 ], 2).asDecimal // -> 0, invalid input
   ```
 </details>
@@ -120,7 +120,7 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   Each rank should be non-negative integer and have a value less than radix.
 
   ```ts
-	radix([ 1, 1, 0 ], 2).valid    // -> true
+  radix([ 1, 1, 0 ], 2).valid    // -> true
   radix([ 0, 1, 2, 8 ], 8).valid // -> false, rank can't be 8 for the base 8
   radix([ 1, 1, 0 ], 2).valid    // -> true
   radix([ 1, 1, 0 ], 1.5).valid  // -> false, radix should be an integer
@@ -160,7 +160,7 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   Returns the numeric decimal representation.
 
   ```ts
-	radix([ 1, 0, 1, 0 ], 2).asDecimal // -> 10
+  radix([ 1, 0, 1, 0 ], 2).asDecimal // -> 10
 	radix([ 2, 4, 5 ], 8).asDecimal    // -> 165
   ```
 </details>
