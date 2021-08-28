@@ -4,7 +4,21 @@ import { numbers } from "./fixtures";
 
 describe("Constructor", () => {
 	it("Constructs an instance", () => {
-		const instance = radix([ 0 ], 2);
+		const instance = radix([ 1, 2, 3 ], 4);
+		// @ts-ignore
+		expect(instance.base).toBe(4);
+		// @ts-ignore
+		expect(instance.digits).toEqual([ 1, 2, 3 ]);
+	});
+	it("Constructs an instance without radix specified", () => {
+		const instance = radix([ 1, 0, 1 ]);
+		// @ts-ignore
+		expect(instance.base).toBe(2);
+		// @ts-ignore
+		expect(instance.digits).toEqual([ 1, 0, 1 ]);
+	});
+	it("Constructs an instance without any parameters", () => {
+		const instance = radix();
 		// @ts-ignore
 		expect(instance.base).toBe(2);
 		// @ts-ignore
@@ -58,5 +72,17 @@ describe("Transformations", () => {
 	it("Transforms into the number", () => {
 		expect(radix([ 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0 ], 2).number()).toEqual("5962");
 		expect(radix([ 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1 ], 2).number(10, "-")).toEqual("1-1-9-2-7");
+	});
+	it("Changes the rank of the number", () => {
+		expect(radix([ 1, 0, 1 ], 2).setRank().ranks).toEqual([ 1, 0, 0 ]);
+		expect(radix([ 1, 0, 1 ], 2).setRank(0).ranks).toEqual([ 1, 0, 0 ]);
+		expect(radix([ 1, 0, 1 ], 2).setRank(1, 1).ranks).toEqual([ 1, 1, 1 ]);
+		expect(radix([ 4, 0, 5, 7 ], 8).setRank(7, 3).ranks).toEqual([ 7, 0, 5, 7 ]);
+		expect(radix([ 1, 0, 1, 0, 1, 1, 1, 0, 1 ], 2).setRank(1, 5).ranks).toEqual([ 1, 0, 1, 1, 1, 1, 1, 0, 1 ]);
+		// invalid changes
+		expect(radix([ 1, 0, 1 ], 2).setRank(4, 1).ranks).toEqual([ 0 ]);
+		expect(radix([ 1, 0, 1 ], 2).setRank(1, 8).ranks).toEqual([ 0 ]);
+		expect(radix([ 1, 0, 1 ], 2).setRank(1, -1).ranks).toEqual([ 0 ]);
+		expect(radix([ 1, 2, 3 ], 4).setRank(5).ranks).toEqual([ 0 ]);
 	});
 });

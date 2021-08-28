@@ -1,5 +1,10 @@
 # Radix
 
+# 0.3.0 (2021-08-28)
+
+- [improvement]: default `radix` constructor arguments as binary zero;
+- [feature]: `.setRank(value, rank)` method for ranks manipulations;
+
 ## 0.2.0 (2021-08-28)
 
 - [improvement]: validating the input with fallback value;

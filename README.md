@@ -91,7 +91,7 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
 
 <details>
   <summary>
-    <code>radix(ranks, radix)</code>
+    <code>radix(ranks = [ 0 ], radix = 2)</code>
   </summary>
 
   Constructs a number from given ranks and specified radix.
@@ -100,8 +100,10 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   In case of invalid input the fallback is number 0 in binary system.
 
   ```ts
+  radix().asDecimal                           // -> 0
+  radix([ 1, 0, 0 ]).asDecimal                // -> 4
   radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).asDecimal // -> 77
-  radix([ 5, 0 ], 2).asDecimal // -> 0, invalid input
+  radix([ 5, 0 ], 2).asDecimal                // -> 0, invalid input
   ```
 </details>
 
@@ -136,7 +138,7 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   Returns number's [radix](https://en.wikipedia.org/wiki/Radix) value.
 
   ```ts
-	radix([ 1, 0, 1], 2).radix // -> 2
+  radix([ 1, 0, 1], 2).radix // -> 2
   ```
 </details>
 
@@ -148,7 +150,7 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   Returns ranks the number consists of.
 
   ```ts
-	radix([ 1, 0, 1], 2).ranks // -> [ 1, 0, 1 ]
+  radix([ 1, 0, 1], 2).ranks // -> [ 1, 0, 1 ]
   ```
 </details>
 
@@ -161,7 +163,7 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
 
   ```ts
   radix([ 1, 0, 1, 0 ], 2).asDecimal // -> 10
-	radix([ 2, 4, 5 ], 8).asDecimal    // -> 165
+  radix([ 2, 4, 5 ], 8).asDecimal    // -> 165
   ```
 </details>
 
@@ -175,9 +177,9 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   Constructs a number's string representation with specified radix.
 
   ```ts
-	radix([ 1, 0, 1, 0 ], 2).number()       // -> "10"
-	radix([ 1, 0, 1, 0 ], 2).number(8)      // -> "12"
-	radix([ 1, 0, 1, 0 ], 2).number(8, ",") // -> "1,2"
+  radix([ 1, 0, 1, 0 ], 2).number()       // -> "10"
+  radix([ 1, 0, 1, 0 ], 2).number(8)      // -> "12"
+  radix([ 1, 0, 1, 0 ], 2).number(8, ",") // -> "1,2"
   ```
 </details>
 
@@ -189,27 +191,46 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   Changes the number's radix and returns a new `Radix` instance.
 
   ```ts
-	radix([ 1, 0, 1, 0 ], 2).setRadix(10) // [ 1, 0 ]
-	radix([ 1, 0, 1, 0 ], 2).setRadix(8)  // [ 1, 2 ]
-	radix([ 1, 0, 1, 0 ], 2).setRadix(2)  // [ 1, 0, 1, 0 ]
-
-    // shortcuts
-	radix([ 1, 0 ], 10).binary         // [ 1, 0, 1, 0 ]
-	radix([ 1, 0 ], 10).octal          // [ 1, 2 ]
-	radix([ 1, 0 ], 2).decimal         // [ 2 ]
-	radix([ 1, 0 ], 10).hexadecimal    // [ 10 ]
-	radix([ 1, 2, 3 ], 10).sexagesimal // [ 7, 11 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(10) // [ 1, 0 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(8)  // [ 1, 2 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(2)  // [ 1, 0, 1, 0 ]
+  
+  // shortcuts
+  radix([ 1, 0 ], 10).binary         // [ 1, 0, 1, 0 ]
+  radix([ 1, 0 ], 10).octal          // [ 1, 2 ]
+  radix([ 1, 0 ], 2).decimal         // [ 2 ]
+  radix([ 1, 0 ], 10).hexadecimal    // [ 10 ]
+  radix([ 1, 2, 3 ], 10).sexagesimal // [ 7, 11 ]
   ```
 
   The are also some shortcut properties for most used radix transformations.
 
   ```ts
-	radix([ 1, 0 ], 10).binary         // [ 1, 0, 1, 0 ]
-	radix([ 1, 0 ], 10).octal          // [ 1, 2 ]
-	radix([ 1, 0 ], 2).decimal         // [ 2 ]
-	radix([ 1, 0 ], 10).hexadecimal    // [ 10 ]
-	radix([ 1, 2, 3 ], 10).sexagesimal // [ 7, 11 ]
+  radix([ 1, 0 ], 10).binary         // [ 1, 0, 1, 0 ]
+  radix([ 1, 0 ], 10).octal          // [ 1, 2 ]
+  radix([ 1, 0 ], 2).decimal         // [ 2 ]
+  radix([ 1, 0 ], 10).hexadecimal    // [ 10 ]
+  radix([ 1, 2, 3 ], 10).sexagesimal // [ 7, 11 ]
   ```
+</details>
+
+<details>
+  <summary>
+    <code>.setRank(value = 0, rank = 0)</code>
+  </summary>
+
+  Changes the value of specific rank and returns the number as new `Radix` instance.
+
+  ```ts
+  radix([ 1, 0, 1 ], 2).setRank(0).ranks                      // -> [ 1, 0, 0 ]);
+  radix([ 1, 0, 1 ], 2).setRank(1, 1).ranks                   // -> [ 1, 1, 1 ]);
+  radix([ 4, 0, 5, 7 ], 8).setRank(7, 3).ranks                // -> [ 7, 0, 5, 7 ]);
+  radix([ 1, 0, 1, 0, 1, 1, 1, 0, 1 ], 2).setRank(1, 5).ranks // -> [ 1, 0, 1, 1, 1, 1, 1, 0, 1 ]);
+  ```
+
+  Note: remember, that ranks and array indexes have the reversed order. Ranks order increments to the left:
+
+  123 = 1 * 10^**2** + 2 * 10^**1** + 3 * 10^**0**
 </details>
 
 ## Extending functionality
@@ -236,7 +257,8 @@ extended.sum() // -> 2
 
 ## Roadmap
 
-- [ ]: more versatile input;
-- [ ]: input validation;
-- [ ]: ranks mutations;
-- [ ]: arithmetics;
+- [x] input validation;
+- [x] ranks mutations;
+- [ ] arithmetics;
+- [ ] more versatile input;
+- [ ] user defined ranks dictionaries;
