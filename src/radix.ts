@@ -9,7 +9,7 @@ export class Radix {
 	private readonly digits: number[];
 	private readonly base: number;
 
-	constructor(ranks: number[], radix: number) {
+	constructor(ranks: number[] = [ 0 ], radix = 2) {
 		this.checkStatus = checkNumber(ranks, radix);
 		[ this.digits, this.base ] = this.checkStatus
 			? [ ranks, radix ]
@@ -93,11 +93,28 @@ export class Radix {
 	get sexagesimal(): Radix {
 		return this.setRadix(60);
 	}
+
+	/**
+	 * Changes the value of specific rank and returns the number as new `Radix` instance.
+	 */
+	setRank(value = 0, rank = 0): Radix {
+		if (rank < 0 || rank > this.digits.length) {
+			return new Radix();
+		}
+
+		// array indexes and ranks have reverse order by comparison
+		const rankIndex = this.digits.length - 1 - rank;
+
+		return new Radix(
+			this.digits.map((digit, index) => index === rankIndex ? value : digit),
+			this.radix
+		);
+	}
 }
 
 /**
  * Provides functionality to store, transform, and manipulate number with different radixes.
  */
-export function radix(ranks: number[], radix: number): Radix {
+export function radix(ranks?: number[], radix?: number): Radix {
 	return new Radix(ranks, radix);
 }
