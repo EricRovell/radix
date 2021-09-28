@@ -107,6 +107,35 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   ```
 </details>
 
+### Representation
+
+<details>
+  <summary>
+    <code>.toString(radix = 10, sep = "")</code>
+  </summary>
+
+  Constructs a string representation with specified radix and separator.
+
+  ```ts
+  radix([ 1, 0, 1, 0 ], 2).toString()       // -> "10"
+  radix([ 1, 0, 1, 0 ], 2).toString(8)      // -> "12"
+  radix([ 1, 0, 1, 0 ], 2).toString(8, ",") // -> "1,2"
+  ```
+</details>
+
+<details>
+  <summary>
+    <code>.asDecimal</code>
+  </summary>
+
+  Returns the numeric decimal representation.
+
+  ```ts
+  radix([ 1, 0, 1, 0 ], 2).asDecimal // -> 10
+  radix([ 2, 4, 5 ], 8).asDecimal    // -> 165
+  ```
+</details>
+
 ### Properties
 
 <details>
@@ -154,34 +183,7 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   ```
 </details>
 
-<details>
-  <summary>
-    <code>.asDecimal</code>
-  </summary>
-
-  Returns the numeric decimal representation.
-
-  ```ts
-  radix([ 1, 0, 1, 0 ], 2).asDecimal // -> 10
-  radix([ 2, 4, 5 ], 8).asDecimal    // -> 165
-  ```
-</details>
-
 ### Manipulations
-
-<details>
-  <summary>
-    <code>.number(radix = 10, sep = "")</code>
-  </summary>
-
-  Constructs a number's string representation with specified radix.
-
-  ```ts
-  radix([ 1, 0, 1, 0 ], 2).number()       // -> "10"
-  radix([ 1, 0, 1, 0 ], 2).number(8)      // -> "12"
-  radix([ 1, 0, 1, 0 ], 2).number(8, ",") // -> "1,2"
-  ```
-</details>
 
 <details>
   <summary>

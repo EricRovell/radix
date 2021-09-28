@@ -1,5 +1,9 @@
 # Radix
 
+# Unreleased (2021-09-28)
+
+- [breaking]: `.number()` method was renamed to `.toString()`;
+
 # 0.3.0 (2021-08-28)
 
 - [improvement]: default `radix` constructor arguments as binary zero;

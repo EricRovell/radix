@@ -70,8 +70,8 @@ describe("Transformations", () => {
 		}
 	});
 	it("Transforms into the number", () => {
-		expect(radix([ 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0 ], 2).number()).toEqual("5962");
-		expect(radix([ 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1 ], 2).number(10, "-")).toEqual("1-1-9-2-7");
+		expect(radix([ 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0 ], 2).toString()).toEqual("5962");
+		expect(radix([ 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1 ], 2).toString(10, "-")).toEqual("1-1-9-2-7");
 	});
 	it("Changes the rank of the number", () => {
 		expect(radix([ 1, 0, 1 ], 2).setRank().ranks).toEqual([ 1, 0, 0 ]);
