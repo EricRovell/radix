@@ -38,9 +38,9 @@ export class Radix {
 	}
 
 	/**
-	 * Constructs a number's string representation with specified radix.
+	 * Constructs a string representation with specified radix.
 	 */
-	number(radix = 10, sep = ""): string {
+	toString(radix = 10, sep = ""): string {
 		return this.setRadix(radix).digits.join(sep);
 	}
 
@@ -48,7 +48,7 @@ export class Radix {
 	 * Returns the numeric decimal representation.
 	 */
 	get asDecimal(): number {
-		return Number(this.number(10));
+		return Number(this.toString(10));
 	}
 
 	/**
