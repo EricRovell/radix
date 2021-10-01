@@ -1,8 +1,9 @@
 # Radix
 
-# Unreleased (2021-09-28)
+# Unreleased (2021-10-01)
 
 - [breaking]: `.number()` method was renamed to `.toString()`;
+- [feature]: ranks custom decoding options;
 
 # 0.3.0 (2021-08-28)
 

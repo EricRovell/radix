@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { radix } from "../src/radix";
 import { numbers } from "./fixtures";
+import type { Decoder } from "../src/types";
 
 describe("Constructor", () => {
 	it("Constructs an instance", () => {
@@ -24,6 +25,21 @@ describe("Constructor", () => {
 		// @ts-ignore
 		expect(instance.digits).toEqual([ 0 ]);
 	});
+	it("Constructs an instance with decoding option", () => {
+		const decodeDict = { "A": 0, "B": 1 };
+		expect(radix([ "B", "A", "B" ], 2, { decoding: decodeDict }).ranks).toEqual([ 1, 0, 1 ]);
+		expect(radix([ "A", "A", "B", 3 ], 4, { decoding: decodeDict }).ranks).toEqual([ 0, 0, 1, 3 ]);
+	});
+	it("Constructs an instance with decoder option", () => {
+		const decoder: Decoder = rank => rank === "A" ? 0 : 1;
+		expect(radix([ "B", "A", "B" ], 2, { decoder }).ranks).toEqual([ 1, 0, 1 ]);
+		expect(radix([ "A", "A", "B", 3 ], 4, { decoder }).ranks).toEqual([ 0, 0, 1, 1 ]);
+	});
+	it("Constructs an instance with decoding dictionary & decoder option", () => {
+		const decoder: Decoder = rank => rank === 6 ? 4 : rank;
+		const decoding = { "A": 0, "B": 1 };
+		expect(radix([ "B", "A", "B", 6, 7, 9 ], 10, { decoder, decoding }).ranks).toEqual([ 1, 0, 1, 4, 7, 9 ]);
+	});
 });
 
 describe("Properties", () => {
@@ -43,8 +59,6 @@ describe("Properties", () => {
 		expect(radix([ 0, 1, 2, 8 ], 8).valid).toBe(false);
 		expect(radix([ 0, 1, 2, -7 ], 8).valid).toBe(false);
 		expect(radix([ 0, 1.5, 2, 4 ], 8).valid).toBe(false);
-		// @ts-expect-error
-		expect(radix([ "2", 1, 0 ], 2).valid).toBe(false);
 	});
 	it("Checks if the input radix is correct", () => {
 		expect(radix([ 1, 1, 0 ], 2).valid).toBe(true);

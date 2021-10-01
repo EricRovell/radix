@@ -1,18 +1,20 @@
 import { radixTransform } from "@util/radixTransform";
-import { checkNumber } from "./lib/check-number";
+import { checkNumber, decode } from "@lib";
+import type { RanksInput, Ranks, RadixOptions } from "./types";
 
 /**
  * Provides functionality to store, transform, and manipulate number with different radixes.
  */
 export class Radix {
 	private readonly checkStatus: boolean;
-	private readonly digits: number[];
+	private readonly digits: Ranks;
 	private readonly base: number;
 
-	constructor(ranks: number[] = [ 0 ], radix = 2) {
-		this.checkStatus = checkNumber(ranks, radix);
+	constructor(ranks: RanksInput = [ 0 ], radix = 2, options: RadixOptions = {}) {
+		const decoded = decode(ranks, options);
+		this.checkStatus = checkNumber(decoded, radix);
 		[ this.digits, this.base ] = this.checkStatus
-			? [ ranks, radix ]
+			? [ decoded, radix ]
 			: [ [ 0 ], 2 ];
 	}
 
@@ -115,6 +117,6 @@ export class Radix {
 /**
  * Provides functionality to store, transform, and manipulate number with different radixes.
  */
-export function radix(ranks?: number[], radix?: number): Radix {
-	return new Radix(ranks, radix);
+export function radix(ranks?: RanksInput, radix?: number, options?: RadixOptions): Radix {
+	return new Radix(ranks, radix, options);
 }
