@@ -157,14 +157,22 @@ Decoder and decodings can be used simultaniously, at the end of the process each
 
 <details>
   <summary>
-    <code>.asDecimal</code>
+    <code>.decimal</code>
   </summary>
 
   Returns the numeric decimal representation.
 
   ```ts
-  radix([ 1, 0, 1, 0 ], 2).asDecimal // -> 10
-  radix([ 2, 4, 5 ], 8).asDecimal    // -> 165
+  radix([ 1, 0, 1, 0 ], 2).decimal // -> 10
+  radix([ 2, 4, 5 ], 8).decimal    // -> 165
+  ```
+
+  Do not use if the decimal value exceed the safe integer value as it returns `Number` instance, not `BigInt`.
+  Instead, create `BigInt` instances from string representation:
+
+  ```ts
+  const numberAsString = radix([ 2, 0, 1 ], 100).toString(10);
+  const number = BigInt(numberAsString);
   ```
 </details>
 

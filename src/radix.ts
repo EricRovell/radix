@@ -48,8 +48,10 @@ export class Radix {
 
 	/**
 	 * Returns the numeric decimal representation.
+	 * 
+	 * ! Do not use when you need big integers as it returns `Number` instance.
 	 */
-	get asDecimal(): number {
+	get decimal(): number {
 		return Number(this.toString(10));
 	}
 
