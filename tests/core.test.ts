@@ -75,11 +75,11 @@ describe("Transformations", () => {
 	it("Transforms number's radix", () => {
 		for (const { bases } of numbers) {
 			for (const [ base, digits ] of Object.entries(bases)) {
-				expect(radix(digits, Number(base)).binary.ranks).toEqual(bases[2]);
-				expect(radix(digits, Number(base)).octal.ranks).toEqual(bases[8]);
-				expect(radix(digits, Number(base)).decimal.ranks).toEqual(bases[10]);
-				expect(radix(digits, Number(base)).hexadecimal.ranks).toEqual(bases[16]);
-				expect(radix(digits, Number(base)).sexagesimal.ranks).toEqual(bases[60]);
+				expect(radix(digits, Number(base)).setRadix(2).ranks).toEqual(bases[2]);
+				expect(radix(digits, Number(base)).setRadix(8).ranks).toEqual(bases[8]);
+				expect(radix(digits, Number(base)).setRadix(10).ranks).toEqual(bases[10]);
+				expect(radix(digits, Number(base)).setRadix(16).ranks).toEqual(bases[16]);
+				expect(radix(digits, Number(base)).setRadix(60).ranks).toEqual(bases[60]);
 			}
 		}
 	});

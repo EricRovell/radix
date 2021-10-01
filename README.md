@@ -228,23 +228,6 @@ Decoder and decodings can be used simultaniously, at the end of the process each
   radix([ 1, 0, 1, 0 ], 2).setRadix(10) // [ 1, 0 ]
   radix([ 1, 0, 1, 0 ], 2).setRadix(8)  // [ 1, 2 ]
   radix([ 1, 0, 1, 0 ], 2).setRadix(2)  // [ 1, 0, 1, 0 ]
-  
-  // shortcuts
-  radix([ 1, 0 ], 10).binary         // [ 1, 0, 1, 0 ]
-  radix([ 1, 0 ], 10).octal          // [ 1, 2 ]
-  radix([ 1, 0 ], 2).decimal         // [ 2 ]
-  radix([ 1, 0 ], 10).hexadecimal    // [ 10 ]
-  radix([ 1, 2, 3 ], 10).sexagesimal // [ 7, 11 ]
-  ```
-
-  The are also some shortcut properties for most used radix transformations.
-
-  ```ts
-  radix([ 1, 0 ], 10).binary         // [ 1, 0, 1, 0 ]
-  radix([ 1, 0 ], 10).octal          // [ 1, 2 ]
-  radix([ 1, 0 ], 2).decimal         // [ 2 ]
-  radix([ 1, 0 ], 10).hexadecimal    // [ 10 ]
-  radix([ 1, 2, 3 ], 10).sexagesimal // [ 7, 11 ]
   ```
 </details>
 

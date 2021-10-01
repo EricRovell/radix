@@ -4,6 +4,7 @@
 
 - [breaking]: `.number()` method was renamed to `.toString()`;
 - [feature]: ranks custom decoding options;
+- [breaking]: removed aliases for `.setRadix()` method properties;
 
 # 0.3.0 (2021-08-28)
 
