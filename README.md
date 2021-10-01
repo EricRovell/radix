@@ -284,6 +284,8 @@ extended.sum() // -> 2
 
 - [x] input validation;
 - [x] ranks mutations;
+- [x] decoding;
+- [ ] encoding;
+- [ ] trim zeros;
 - [ ] arithmetics;
-- [ ] more versatile input;
 - [ ] user defined ranks dictionaries;
