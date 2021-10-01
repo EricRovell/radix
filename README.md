@@ -91,7 +91,7 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
 
 <details>
   <summary>
-    <code>radix(ranks = [ 0 ], radix = 2)</code>
+    <code>radix(ranks = [ 0 ], radix = 2, options?)</code>
   </summary>
 
   Constructs a number from given ranks and specified radix.
@@ -106,6 +106,38 @@ radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
   radix([ 5, 0 ], 2).asDecimal                // -> 0, invalid input
   ```
 </details>
+
+#### Decoding
+
+To define custom ranks decoding, provide a decodings object to the constructor options.
+
+```ts
+import type { Decodings } from "@ericrovell/radix";
+
+const decoding: Decodings = {
+  "A": 0,
+  "B": 1,
+};
+
+radix([ "A", "B" ], 2, { decoding }).ranks(); // -> [ 1, 0 ]
+radix([ "A", "B", 7 ], 10, { decoding }).ranks(); // -> [ 1, 0, 7 ]
+```
+
+#### Decoder
+
+To define functional custom ranks decoding, provide a function to the constructor options. 
+
+```ts
+import type { Decoder } from "@ericrovell/radix";
+
+const decoder: Decoder = rank => rank ? "A" : rank;
+
+radix([ "A", 1 ], 2, { decoder }).ranks(); // -> [ 0, 1 ]
+```
+
+Decoder and decodings can be used simultaniously, at the end of the process each rank converted to numeric type:
+
+`input ranks` -> `decoder` -> `decodings` -> `Number constructor` -> `numeric ranks`.
 
 ### Representation
 
