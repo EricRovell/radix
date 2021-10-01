@@ -7,13 +7,13 @@ export type Decoder = (rank: number | string) => number | string;
  * Defines a decoding object.
  * Values should be a number as ranks are always numeric.
  */
-export type DecodingDict = Record<number | string, number>;
+export type Decodings = Record<number | string, number>;
 
 /**
  * Defines a decoding set of options.
  */
 export interface Decoding {
-	decoding?: DecodingDict;
+	decoding?: Decodings;
 	decoder?: Decoder;
 }
 

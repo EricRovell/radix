@@ -1,6 +1,6 @@
 export { Radix, radix } from "./radix";
 export type {
-	DecodingDict,
+	Decodings,
 	Decoder,
 	RadixOptions
 } from "./types";
