@@ -1,5 +1,4 @@
-import { radixTransform } from "@util/radixTransform";
-import { checkNumber, decode } from "@lib";
+import { radixTransform, checkNumber, decode } from "@lib";
 import type { RanksInput, Ranks, RadixOptions } from "./types";
 
 /**

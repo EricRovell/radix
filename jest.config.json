@@ -4,7 +4,6 @@
     "^.+\\.ts$": "ts-jest"
   },
   "moduleNameMapper": {
-    "^@util/(.*)": "<rootDir>/src/util/$1",
     "^@lib/(.*)": "<rootDir>/src/lib/$1",
     "^@lib": "<rootDir>/src/lib/index.ts",
     "^@/(.*)": "<rootDir>/src/$1",

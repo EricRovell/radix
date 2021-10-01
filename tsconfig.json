@@ -10,7 +10,6 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "paths": {
-      "@util/*": [ "util/*" ],
       "@lib/*": [ "lib/*" ],
       "@lib": [ "lib/index.ts" ],
       "@/*": [ "./*" ],
