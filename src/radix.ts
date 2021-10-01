@@ -57,8 +57,8 @@ export class Radix {
 	/**
 	 * Changes the number's radix and returns a new `Radix` instance.
 	 */
-	setRadix(radix: number): Radix {
-		const transformed = radixTransform(this.digits, this.radix, radix);
+	setRadix(radix: number, trimZeros = true): Radix {
+		const transformed = radixTransform(this.digits, this.radix, radix, trimZeros);
 		return new Radix(transformed, radix);
 	}
 
