@@ -62,41 +62,6 @@ export class Radix {
 	}
 
 	/**
-	 * Returns new `Radix` instance with the binary radix representation.
-	 */
-	get binary(): Radix {
-		return this.setRadix(2);
-	}
-
-	/**
-	 * Returns new `Radix` instance with the octal radix representation.
-	 */
-	get octal(): Radix {
-		return this.setRadix(8);
-	}
-
-	/**
-	 * Returns new `Radix` instance with the decimal radix representation.
-	 */
-	get decimal(): Radix {
-		return this.setRadix(10);
-	}
-
-	/**
-	 * Returns new `Radix` instance with the hexadecimal radix representation.
-	 */
-	get hexadecimal(): Radix {
-		return this.setRadix(16);
-	}
-
-	/**
-	 * Returns new `Radix` instance with the sexagesimal radix representation.
-	 */
-	get sexagesimal(): Radix {
-		return this.setRadix(60);
-	}
-
-	/**
 	 * Changes the value of specific rank and returns the number as new `Radix` instance.
 	 */
 	setRank(value = 0, rank = 0): Radix {
