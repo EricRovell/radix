@@ -46,11 +46,11 @@ describe("Properties", () => {
 	it("Constructs a decimal number", () => {
 		for (const { decimal, bases } of numbers) {
 			for (const [ base, digits ] of Object.entries(bases)) {
-				expect(radix(digits, Number(base)).asDecimal).toEqual(decimal);
-				expect(radix(digits, Number(base)).asDecimal).toEqual(decimal);
-				expect(radix(digits, Number(base)).asDecimal).toEqual(decimal);
-				expect(radix(digits, Number(base)).asDecimal).toEqual(decimal);
-				expect(radix(digits, Number(base)).asDecimal).toEqual(decimal);
+				expect(radix(digits, Number(base)).decimal).toEqual(decimal);
+				expect(radix(digits, Number(base)).decimal).toEqual(decimal);
+				expect(radix(digits, Number(base)).decimal).toEqual(decimal);
+				expect(radix(digits, Number(base)).decimal).toEqual(decimal);
+				expect(radix(digits, Number(base)).decimal).toEqual(decimal);
 			}
 		}
 	});
