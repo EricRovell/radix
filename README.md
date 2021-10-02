@@ -82,7 +82,7 @@ npm i @ericrovell/radix
 ```ts
 import { radix } from "@ericrovell/radix";
 
-radix([ 1, 0, 1, 0], 2).asDecimal // -> 10
+radix([ 1, 0, 1, 0], 2).decimal // -> 10
 ```
 
 ## API
