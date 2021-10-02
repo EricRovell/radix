@@ -1,5 +1,9 @@
 # Radix
 
+# Unreleased (2021-10-02)
+
+- [feature]: `.rank(index)` method for getting power indexes;
+
 # 0.4.0 (2021-10-01)
 
 - [breaking]: `.number()` method was renamed to `.toString()`;

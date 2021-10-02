@@ -223,6 +223,25 @@ Decoder and decodings can be used simultaniously, at the end of the process each
   ```
 </details>
 
+<details>
+  <summary>
+    <code>.rank(index)</code>
+  </summary>
+
+  Returns the rank value at specified index.
+
+	Index is tied to the rank's power:
+
+  [1 (index = 2), 2 (index = 1), 3 (index = 0) ], as 123 = 1 * 10^2 + 2 * 10^1 + 3 * 10^0.
+
+  ```ts
+  const number = radix([ 5, 4, 3, 2, 1 ], 2)
+
+  number.rank(0); // -> 1
+  number.rank(3); // -> 4
+  ```
+</details>
+
 ### Manipulations
 
 <details>

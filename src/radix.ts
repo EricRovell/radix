@@ -39,6 +39,18 @@ export class Radix {
 	}
 
 	/**
+	 * Returns the rank value at specified index.
+	 * 
+	 * Index is tied to the rank's power:
+	 * 
+	 * [1 (index = 2), 2 (index = 1), 3 (index = 0) ],
+	 * as 123 = 1 * 10^2 + 2 * 10^1 + 3 * 10^0.
+	 */
+	rank(index: number): number {
+		return this.digits[this.digits.length - index - 1];
+	}
+
+	/**
 	 * Constructs a string representation with specified radix.
 	 */
 	toString(radix = 10, sep = ""): string {
