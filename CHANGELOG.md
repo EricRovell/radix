@@ -1,8 +1,11 @@
 # Radix
 
-# Unreleased (2021-10-02)
+# 0.5.0 (2021-10-10)
 
 - [feature]: `.rank(index)` method for getting power indexes;
+- [feature]: `setRadix()` method `trimZeros` optional parameter;
+- [fix]: expose `package.json`;
+- [fix]: expose `Ranks` typings;
 
 # 0.4.0 (2021-10-01)
 
