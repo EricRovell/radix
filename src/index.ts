@@ -2,5 +2,7 @@ export { Radix, radix } from "./radix";
 export type {
 	Decodings,
 	Decoder,
-	RadixOptions
+	RadixOptions,
+	Ranks,
+	RanksInput
 } from "./types";
