@@ -40,6 +40,12 @@ describe("Constructor", () => {
 		const decoding = { "A": 0, "B": 1 };
 		expect(radix([ "B", "A", "B", 6, 7, 9 ], 10, { decoder, decoding }).ranks).toEqual([ 1, 0, 1, 4, 7, 9 ]);
 	});
+	it("Constructs an instance without stripped zeros", () => {
+		expect(radix([ 0, 0, 1, 1 ], 2)
+			.setRadix(10, false)
+			.ranks)
+			.toEqual([ 0, 0, 0, 3 ]);
+	});
 });
 
 describe("Properties", () => {

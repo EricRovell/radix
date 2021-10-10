@@ -246,15 +246,16 @@ Decoder and decodings can be used simultaniously, at the end of the process each
 
 <details>
   <summary>
-    <code>.setRadix(radix)</code>
+    <code>.setRadix(radix, trimZeros = true)</code>
   </summary>
 
   Changes the number's radix and returns a new `Radix` instance.
 
   ```ts
-  radix([ 1, 0, 1, 0 ], 2).setRadix(10) // [ 1, 0 ]
-  radix([ 1, 0, 1, 0 ], 2).setRadix(8)  // [ 1, 2 ]
-  radix([ 1, 0, 1, 0 ], 2).setRadix(2)  // [ 1, 0, 1, 0 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(10);        // [ 1, 0 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(8);         // [ 1, 2 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(2);         // [ 1, 0, 1, 0 ]
+  radix([ 0, 0, 1, 1 ], 2).setRadix(10, false); // [ 0, 0, 0, 3 ]
   ```
 </details>
 

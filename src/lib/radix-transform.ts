@@ -26,6 +26,15 @@ function fromDigits(ranks: number[], radix: number) {
 /**
  * Transforms number's radix.
  */
-export function radixTransform(input: number[], radixIn: number, radixOut: number): number[] {
-	return toDigits(fromDigits(input, radixIn), radixOut);
+export function radixTransform(input: number[], radixIn: number, radixOut: number, trimZeros = true): number[] {
+	const transformed = toDigits(fromDigits(input, radixIn), radixOut);
+
+	if (trimZeros) {
+		return transformed;
+	}
+
+	return [
+		...new Array(Math.max(input.length - transformed.length, 0)).fill(0),
+		...transformed
+	];
 }
