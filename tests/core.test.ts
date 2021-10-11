@@ -93,6 +93,13 @@ describe("Transformations", () => {
 				expect(radix(digits, Number(base)).setRadix(60).ranks).toEqual(bases[60]);
 			}
 		}
+		/**
+		 * Caught a bug with this test case:
+		 * 
+		 * Used in radix transform:
+		 * 	source / radix | 0 and it led to wrong result.
+		 */
+		expect(radix([ 7, 6, 2, 1, 1, 7, 7, 5, 5, 5 ], 10).setRadix(2).ranks).toEqual([ 1,1,1,0,0,0,1,1,0,0,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,1,0,1,0,0,1,1 ]);
 	});
 	it("Transforms into the number", () => {
 		expect(radix([ 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0 ], 2).toString()).toEqual("5962");

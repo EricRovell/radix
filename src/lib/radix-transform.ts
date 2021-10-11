@@ -11,7 +11,7 @@ function toDigits(number: number, radix: number): number[] {
 
 	while (source) {
 		ranks.push(source % radix);
-		source = source / radix | 0;
+		source = Math.trunc(source / radix);
 	}
 	return ranks.slice().reverse();
 }
