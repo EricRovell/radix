@@ -1,4 +1,15 @@
-# Radix
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### 0.5.1 (2021-10-11)
+
+
+### Bug Fixes
+
+* expose `Ranks` types ([b6640a3](https://github.com/ericrovell/radix/commit/b6640a3123696a3f57e5b6d98a3a04a77f899810))
+* old method name typo ([9c11991](https://github.com/ericrovell/radix/commit/9c119916c8cbddd2b571865c59975f1a914869d2))
+* wrong radix-transform result caused by rounding ([9bbc873](https://github.com/ericrovell/radix/commit/9bbc8739dcc99cfadccf48fdec2270c3ce4b8f81))
 
 # 0.5.0 (2021-10-10)
 
