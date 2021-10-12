@@ -20,4 +20,6 @@ export interface Decoding {
 /**
  * Defines options available for constructor.
  */
-export type RadixOptions = Decoding
+export interface RadixOptions extends Decoding {
+	minRanks?: number;
+}
