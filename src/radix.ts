@@ -1,4 +1,5 @@
-import { radixTransform, checkNumber, decode } from "@lib";
+import { construct } from "./construct";
+import { radixTransform } from "@lib";
 import type { RanksInput, Ranks, RadixOptions } from "./types";
 
 /**
@@ -10,11 +11,10 @@ export class Radix {
 	private readonly base: number;
 
 	constructor(ranks: RanksInput = [ 0 ], radix = 2, options: RadixOptions = {}) {
-		const decoded = decode(ranks, options);
-		this.checkStatus = checkNumber(decoded, radix);
-		[ this.digits, this.base ] = this.checkStatus
-			? [ decoded, radix ]
-			: [ [ 0 ], 2 ];
+		const number = construct(ranks, radix, options);
+		this.checkStatus = number.valid;
+		this.digits = number.ranks;
+		this.base = number.radix;
 	}
 
 	/**
@@ -69,8 +69,8 @@ export class Radix {
 	/**
 	 * Changes the number's radix and returns a new `Radix` instance.
 	 */
-	setRadix(radix: number, trimZeros = true): Radix {
-		const transformed = radixTransform(this.digits, this.radix, radix, trimZeros);
+	setRadix(radix: number): Radix {
+		const transformed = radixTransform(this.digits, this.radix, radix);
 		return new Radix(transformed, radix);
 	}
 
