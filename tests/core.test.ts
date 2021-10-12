@@ -40,6 +40,11 @@ describe("Constructor", () => {
 		const decoding = { "A": 0, "B": 1 };
 		expect(radix([ "B", "A", "B", 6, 7, 9 ], 10, { decoder, decoding }).ranks).toEqual([ 1, 0, 1, 4, 7, 9 ]);
 	});
+	it("Constructs an instance with fixed minimal number of ranks option", () => {
+		expect(radix([ 1 ], 2, { minRanks: 5 }).ranks).toEqual([ 0, 0, 0, 0, 1 ]);
+		expect(radix([ 1 ], 2, { minRanks: -5 }).ranks).toEqual([ 1 ]);
+		expect(radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }).ranks).toEqual([ 1, 2, 3, 4 ]);
+	});
 });
 
 describe("Properties", () => {
