@@ -69,7 +69,9 @@ In this library numbers are represented by ranks as an array items `[ 1, 2, 3 ] 
 
 ### Personal
 
-The main reason for this package for exist, there are plans for small educational webapp for learning numeral bases and this package will be used here. You can see the example project [here](https://numbers-i76mhuwte.now.sh/en/welcome), it is a bit old and full of bugs. I have decided to do it better from scratch and the work begins here as a little package that might be usefull for someone else too.
+The main reason for this package for exist, there are plans for small educational webapp for learning numeral bases and this package will be used here. You can see the example project [here](https://numbers-ruby.vercel.app), it is a bit old and full of bugs. I have decided to do it better from scratch and the work begins here as a little package that might be usefull for someone else too.
+
+You can find the new project [here](https://radix.vercel.app). It is in early stage of development and influences of the development of this package.
 
 ## Getting started
 
@@ -138,6 +140,16 @@ radix([ "A", 1 ], 2, { decoder }).ranks(); // -> [ 0, 1 ]
 Decoder and decodings can be used simultaniously, at the end of the process each rank converted to numeric type:
 
 `input ranks` -> `decoder` -> `decodings` -> `Number constructor` -> `numeric ranks`.
+
+#### Minimal number of ranks
+
+In case you need some minimal number of ranks within the radix number, provide a `minRanks` option via constructor:
+
+```ts
+radix([ 1 ], 2, { minRanks: 5 }).ranks;     // -> [ 0, 0, 0, 0, 1 ]
+radix([ 1 ], 2, { minRanks: -5 }).ranks;    // -> [ 1 ]
+radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }); // -> [ 1, 2, 3, 4 ]
+```
 
 ### Representation
 
@@ -305,6 +317,7 @@ extended.sum() // -> 2
 - [x] ranks mutations;
 - [x] decoding;
 - [ ] encoding;
-- [ ] trim zeros;
 - [ ] arithmetics;
 - [ ] user defined ranks dictionaries;
+- [ ] `BigInt` integration;
+- [ ] support `string` input;
