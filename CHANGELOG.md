@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/ericrovell/radix/compare/v0.5.1...v0.6.0) (2021-10-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* `.setRadix()` method does not have optional `trimZeros` argument.
+
+### Features
+
+* **helper:** `prependZeros` helper function ([5a8c0c4](https://github.com/ericrovell/radix/commit/5a8c0c4d7c069d698cd9949ddc86eea713746692))
+* supporing `minRanks` constructor option ([fdaaa26](https://github.com/ericrovell/radix/commit/fdaaa26bcd843dad0a0e58578f548690d50bfe9b))
+
+
+### revert
+
+* revert `trimZeros` argument ([2ceb39c](https://github.com/ericrovell/radix/commit/2ceb39c226a9a0664d78768cbf5d92809d99967d))
+
 ### 0.5.1 (2021-10-11)
 
 
