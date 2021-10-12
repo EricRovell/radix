@@ -9,12 +9,14 @@ export class Radix {
 	private readonly checkStatus: boolean;
 	private readonly digits: Ranks;
 	private readonly base: number;
+	private readonly options: RadixOptions;
 
 	constructor(ranks: RanksInput = [ 0 ], radix = 2, options: RadixOptions = {}) {
 		const number = construct(ranks, radix, options);
 		this.checkStatus = number.valid;
 		this.digits = number.ranks;
 		this.base = number.radix;
+		this.options = options;
 	}
 
 	/**
@@ -71,7 +73,7 @@ export class Radix {
 	 */
 	setRadix(radix: number): Radix {
 		const transformed = radixTransform(this.digits, this.radix, radix);
-		return new Radix(transformed, radix);
+		return new Radix(transformed, radix, this.options);
 	}
 
 	/**
@@ -87,7 +89,8 @@ export class Radix {
 
 		return new Radix(
 			this.digits.map((digit, index) => index === rankIndex ? value : digit),
-			this.radix
+			this.radix,
+			this.options
 		);
 	}
 }
