@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest";
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { radix } from "../src/radix";
 import { numbers } from "./fixtures";
@@ -94,7 +96,7 @@ describe("Transformations", () => {
 		}
 		/**
 		 * Caught a bug with this test case:
-		 * 
+		 *
 		 * Used in radix transform:
 		 * 	source / radix | 0 and it led to wrong result.
 		 */
