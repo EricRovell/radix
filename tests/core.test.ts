@@ -8,16 +8,16 @@ import type { Decoder } from "../src/types";
 describe("Constructor", () => {
 	it("Constructs an instance", () => {
 		const instance = radix([ 1, 2, 3 ], 4);
-		// @ts-ignore
+		// @ts-ignore test private field
 		expect(instance.base).toBe(4);
-		// @ts-ignore
+		// @ts-ignore test private field
 		expect(instance.digits).toEqual([ 1, 2, 3 ]);
 	});
 	it("Constructs an instance without radix specified", () => {
 		const instance = radix([ 1, 0, 1 ]);
-		// @ts-ignore
+		// @ts-ignore test private field
 		expect(instance.base).toBe(2);
-		// @ts-ignore
+		// @ts-ignore test private field
 		expect(instance.digits).toEqual([ 1, 0, 1 ]);
 	});
 	it("Constructs an instance without any parameters", () => {
@@ -73,7 +73,7 @@ describe("Properties", () => {
 		expect(radix([ 0, 1, 2, 8 ], 0).valid).toBe(false);
 		expect(radix([ 0, 1, 2, 8 ], 1).valid).toBe(false);
 		expect(radix([ 0, 1, 2, 8 ], -1).valid).toBe(false);
-		// @ts-expect-error
+		// @ts-expect-error test case
 		expect(radix([ 0, 1, 2, -7 ], "8").valid).toBe(false);
 	});
 	it("Returns the rank value at specified index", () => {
@@ -129,11 +129,12 @@ describe("Unsafe Integer Values", () => {
 			.map(Number);
 
 		// unsafe value is transformed back and forth, should be the same in result
-		const input = radix(ranks, 10);
-		const output = radix(input.setRadix(60).ranks, 60)
-			.setRadix(10)
-			.ranks;
+		const input = radix(ranks, 10)
+			.setRadix(60)
+			.setRadix(2)
+			.setRadix(8)
+			.setRadix(10);
 
-		expect(ranks).toEqual(output);
+		expect(ranks).toEqual(input.ranks);
 	});
 });
