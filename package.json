@@ -63,7 +63,7 @@
 	},
 	"simple-git-hooks": {
 		"pre-commit": "npx lint-staged",
-		"pre-push": "npm run lint && npm run check-types"
+		"pre-push": "pnpm run lint && pnpm run typecheck"
 	},
 	"dependencies": {
 		"vitest": "^0.23.4"
