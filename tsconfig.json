@@ -1,20 +1,15 @@
 {
-  "compilerOptions": {
-    "target": "ES2018",
-    "module": "ESNext",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "declaration": true,
-    "declarationDir": "./dist",
-    "strict": true,
-    "outDir": "./dist",
-    "baseUrl": "./src",
-    "paths": {
-      "@lib/*": [ "lib/*" ],
-      "@lib": [ "lib/index.ts" ],
-      "@/*": [ "./*" ],
-      "@": [ "./index.ts" ]
-    }
-  },
-  "include": [ "./src/**/*" ],
+	"compilerOptions": {
+		"target": "ES2021",
+		"module": "ESNext",
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"declaration": true,
+		"declarationDir": "./dist",
+		"strict": true,
+		"outDir": "./dist",
+		"baseUrl": "./src",
+		"paths": {}
+	},
+	"include": [ "./src/**/*" ]
 }
