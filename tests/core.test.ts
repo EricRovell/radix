@@ -119,3 +119,21 @@ describe("Transformations", () => {
 		expect(radix([ 1, 2, 3 ], 4).setRank(5).ranks).toEqual([ 0 ]);
 	});
 });
+
+describe("Unsafe Integer Values", () => {
+	it("Preserves the value of unsafe integer values", () => {
+		const number = BigInt(Number.MAX_SAFE_INTEGER) ** BigInt(100);
+		const ranks = number
+			.toString()
+			.split("")
+			.map(Number);
+
+		// unsafe value is transformed back and forth, should be the same in result
+		const input = radix(ranks, 10);
+		const output = radix(input.setRadix(60).ranks, 60)
+			.setRadix(10)
+			.ranks;
+
+		expect(ranks).toEqual(output);
+	});
+});
