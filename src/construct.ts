@@ -1,4 +1,4 @@
-import { checkNumber, decode, prependZeros } from "@lib";
+import { checkNumber, decode, prependZeros } from "./lib";
 import type { RanksInput, RadixOptions, Ranks } from "./types";
 
 interface ParsedNumber {

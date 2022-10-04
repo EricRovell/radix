@@ -1,5 +1,5 @@
 import { construct } from "./construct";
-import { radixTransform } from "@lib";
+import { radixTransform } from "./lib";
 import type { RanksInput, Ranks, RadixOptions } from "./types";
 
 /**
@@ -42,9 +42,9 @@ export class Radix {
 
 	/**
 	 * Returns the rank value at specified index.
-	 * 
+	 *
 	 * Index is tied to the rank's power:
-	 * 
+	 *
 	 * [1 (index = 2), 2 (index = 1), 3 (index = 0) ],
 	 * as 123 = 1 * 10^2 + 2 * 10^1 + 3 * 10^0.
 	 */
@@ -61,7 +61,7 @@ export class Radix {
 
 	/**
 	 * Returns the numeric decimal representation.
-	 * 
+	 *
 	 * ! Do not use when you need big integers as it returns `Number` instance.
 	 */
 	get decimal(): number {
