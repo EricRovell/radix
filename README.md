@@ -144,62 +144,7 @@ radix([ 1 ], 2, { minRanks: -5 }).ranks;    // -> [ 1 ]
 radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }); // -> [ 1, 2, 3, 4 ]
 ```
 
-### Representation
-
-<details>
-  <summary>
-    <code>.toString(encode?: Encode, sep = "")</code>
-  </summary>
-
-  Constructs a number's string representation.
-
-  ```ts
-  radix([ 2, 3, 4 ], 10).toString()       // -> "234"
-  ```
-
-  The custom encoding can be specified using the encodings object:
-
-  ```ts
-  import type { Encodings } from "@ericrovell/radix";
-
-  const binary = {
-    0: "A",
-    1: "B"
-  };
-
-  radix([ 1, 0, 1, 0 ], 2).toString(binary)  // -> "BABA"
-  ```
-
-  Also, the decoder function can be provided instead:
-
-  ```ts
-  import type { Encoder } from "@ericrovell/radix";
-
-  const binaryEncoder: Encoder = rank => {
-    return rank === 0 ? "A" : "B"
-  };
-
-  radix([ 1, 0, 1, 0 ], 2).toString(binaryEncoder)  // -> "BABA"
-  ```
-
-  To define a separator, provide a second argument:
-
-  ```ts
-  radix([ 1, 0, 1, 0 ], 2).toString(undefined, "+")  // -> "1+0+1+0"
-  ```
-</details>
-
-<details>
-  <summary>
-    <code>.toArray(encode?: Encode)</code>
-  </summary>
-
-  Constructs a number's array representation. Method works the same as `.ranks` property, but here custom encoding can be defined the same way as within `.toString(encode?: Encode)` method.
-
-  ```ts
-  radix([ 2, 3, 4 ], 10).toArray()  // -> "[ "2", "3", "4" ]"
-  ```
-</details>
+### Methods and properties
 
 <details>
   <summary>
@@ -213,29 +158,148 @@ radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }); // -> [ 1, 2, 3, 4 ]
   radix([ 2, 4, 5 ], 8).decimal    // -> 165
   ```
 
-  Do not use if the decimal value exceed the safe integer value as it returns `Number` instance which is not safe.
+  Do not use if the decimal value may exceed the safe integer value as it returns `Number` instance which is not safe.
   Use `.valueOf()` instead.
 </details>
 
 <details>
   <summary>
-    <code>.valueOf()</code>
+    <code>.getRanks(encode?: Encode)</code>
   </summary>
 
-  Returns the primitive value as decimal radix `BigInt` value.
+  Returns ranks the number consists of.
 
   ```ts
-  radix([ 2, 3 ], 10).valueOf() // -> 23n
+  radix([ 1, 0, 1], 2).ranks // -> [ 1, 0, 1 ]
   ```
 
-  Method may be useful for coercion:
+  The output may be encoded using the `encode` argument.
+
+  Encoding using the the encodings object:
 
   ```ts
-  radix([ 1, 2 ], 10) + radix([ 2, 3 ], 10) // 35n
+  import type { Encodings } from "@ericrovell/radix";
+
+  const binary = {
+    0: "A",
+    1: "B"
+  };
+
+  radix([ 1, 0, 1, 0 ], 2).toString(binary)  // -> [ "B", "A, "B", "A ]
+  ```
+
+  Encoding using the the encoder function:
+
+  ```ts
+  import type { Encoder } from "@ericrovell/radix";
+
+  const binaryEncoder: Encoder = rank => {
+    return rank === 0 ? "A" : "B"
+  };
+
+  radix([ 1, 0, 1, 0 ], 2).toString(binaryEncoder)  // -> [ "B", "A, "B", "A ]
   ```
 </details>
 
-### Properties
+<details>
+  <summary>
+    <code>.getRank(index = 0)</code>
+  </summary>
+
+  Returns the rank value at specified index.
+
+	Index is tied to the rank's power:
+
+  $$ 1234 = 1 * 10^3 + 2 * 10^2 + 3 * 10^1 + 4 * 10^0$$
+
+  Here, the last rank value *4* has a power of *0*, that's how index is calculated.
+
+  ```ts
+  const number = radix([ 1, 2, 3, 4 ], 10)
+
+  number.rank(0); // -> 4
+  number.rank(3); // -> 1
+  ```
+</details>
+
+<details>
+  <summary>
+    <code>.radix</code>
+  </summary>
+
+  Returns number's [radix](https://en.wikipedia.org/wiki/Radix) value.
+
+  ```ts
+  radix([ 1, 0, 1 ], 2).radix // -> 2
+  ```
+</details>
+
+<details>
+  <summary>
+    <code>.setRadix(radix)</code>
+  </summary>
+
+  Changes the number's radix and returns a new `Radix` instance.
+
+  ```ts
+  radix([ 1, 0, 1, 0 ], 2).setRadix(10);        // [ 1, 0 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(8);         // [ 1, 2 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(2);         // [ 1, 0, 1, 0 ]
+  ```
+</details>
+
+<details>
+  <summary>
+    <code>.setRank(value = 0, rank = 0)</code>
+  </summary>
+
+  Changes the value of specific rank and returns the number as new `Radix` instance.
+
+  Note: The index is tied to the power, read more at `.getRank()` method.
+
+  ```ts
+  radix([ 1, 0, 1 ], 2).setRank(0).ranks                       // -> [ 1, 0, 0 ]);
+  radix([ 1, 0, 1 ], 2).setRank(1, 1).ranks                    // -> [ 1, 1, 1 ]);
+  radix([ 4, 0, 5, 7 ], 8).setRank(7, 3).ranks                 // -> [ 7, 0, 5, 7 ]);
+  radix([ 1, 0, 1, 0, 1, 1, 1, 0, 1 ], 2).setRank(1, 5).ranks  // -> [ 1, 0, 1, 1, 1, 1, 1, 0, 1 ]);
+  ```
+</details>
+
+<details>
+  <summary>
+    <code>.toString(encode?: Encode, sep = "")</code>
+  </summary>
+
+  Constructs a number's string representation.
+
+  ```ts
+  radix([ 2, 3, 4 ], 10).toString()       // -> "234"
+  ```
+
+  The custom encoding can be specified using the encodings object or encoder function, same as `.getRanks()` method.
+
+  ```ts
+  import type { Encodings, Encoder } from "@ericrovell/radix";
+
+  const binary = {
+    0: "A",
+    1: "B"
+  };
+
+  const binaryEncoder: Encoder = rank => {
+    return rank === 0 ? "A" : "B"
+  };
+
+  radix([ 1, 0, 1, 0 ], 2).toString(binary)  // -> "BABA"
+  radix([ 1, 0, 1, 0 ], 2).toString(binaryEncoder)  // -> "BABA"
+  ```
+
+  To define a separator, provide a second argument:
+
+  ```ts
+  radix([ 1, 0, 1, 0 ], 2).toString(undefined, "+")  // -> "1+0+1+0"
+  ```
+</details>
 
 <details>
   <summary>
@@ -260,80 +324,20 @@ radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }); // -> [ 1, 2, 3, 4 ]
 
 <details>
   <summary>
-    <code>.radix</code>
+    <code>.valueOf()</code>
   </summary>
 
-  Returns number's [radix](https://en.wikipedia.org/wiki/Radix) value.
+  Returns the primitive value as decimal radix `BigInt` value.
 
   ```ts
-  radix([ 1, 0, 1], 2).radix // -> 2
+  radix([ 2, 3 ], 10).valueOf() // -> 23n
   ```
-</details>
 
-<details>
-  <summary>
-    <code>.ranks</code>
-  </summary>
-
-  Returns ranks the number consists of.
+  Method may be useful for coercion:
 
   ```ts
-  radix([ 1, 0, 1], 2).ranks // -> [ 1, 0, 1 ]
+  radix([ 1, 2 ], 10) + radix([ 2, 3 ], 10) // 35n
   ```
-</details>
-
-<details>
-  <summary>
-    <code>.rank(index)</code>
-  </summary>
-
-  Returns the rank value at specified index.
-
-	Index is tied to the rank's power:
-
-  [1 (index = 2), 2 (index = 1), 3 (index = 0) ], as 123 = 1 * 10^2 + 2 * 10^1 + 3 * 10^0.
-
-  ```ts
-  const number = radix([ 5, 4, 3, 2, 1 ], 2)
-
-  number.rank(0); // -> 1
-  number.rank(3); // -> 4
-  ```
-</details>
-
-### Manipulations
-
-<details>
-  <summary>
-    <code>.setRadix(radix)</code>
-  </summary>
-
-  Changes the number's radix and returns a new `Radix` instance.
-
-  ```ts
-  radix([ 1, 0, 1, 0 ], 2).setRadix(10);        // [ 1, 0 ]
-  radix([ 1, 0, 1, 0 ], 2).setRadix(8);         // [ 1, 2 ]
-  radix([ 1, 0, 1, 0 ], 2).setRadix(2);         // [ 1, 0, 1, 0 ]
-  ```
-</details>
-
-<details>
-  <summary>
-    <code>.setRank(value = 0, rank = 0)</code>
-  </summary>
-
-  Changes the value of specific rank and returns the number as new `Radix` instance.
-
-  ```ts
-  radix([ 1, 0, 1 ], 2).setRank(0).ranks                      // -> [ 1, 0, 0 ]);
-  radix([ 1, 0, 1 ], 2).setRank(1, 1).ranks                   // -> [ 1, 1, 1 ]);
-  radix([ 4, 0, 5, 7 ], 8).setRank(7, 3).ranks                // -> [ 7, 0, 5, 7 ]);
-  radix([ 1, 0, 1, 0, 1, 1, 1, 0, 1 ], 2).setRank(1, 5).ranks // -> [ 1, 0, 1, 1, 1, 1, 1, 0, 1 ]);
-  ```
-
-  Note: remember, that ranks and array indexes have the reversed order. Ranks order increments to the left:
-
-  123 = 1 * 10^**2** + 2 * 10^**1** + 3 * 10^**0**
 </details>
 
 ## Encodings

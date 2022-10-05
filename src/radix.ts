@@ -37,10 +37,24 @@ export class Radix {
 	}
 
 	/**
+	 * Returns the rank value at specified index.
+	 *
+	 * Index is tied to the rank's power:
+	 *
+	 * [1 (index = 2), 2 (index = 1), 3 (index = 0) ],
+	 * as 123 = 1 * 10^2 + 2 * 10^1 + 3 * 10^0.
+	 */
+	getRank(index = 0): number {
+		return this.#ranks[this.#ranks.length - index - 1];
+	}
+
+	/**
 	 * Returns ranks the number consists of.
 	 */
-	get ranks() {
-		return this.#ranks;
+	getRanks(encode?: Encode) {
+		return encode
+			? translate(this.#ranks, encode)
+			: this.#ranks;
 	}
 
 	/**
@@ -51,32 +65,10 @@ export class Radix {
 	}
 
 	/**
-	 * Returns the rank value at specified index.
-	 *
-	 * Index is tied to the rank's power:
-	 *
-	 * [1 (index = 2), 2 (index = 1), 3 (index = 0) ],
-	 * as 123 = 1 * 10^2 + 2 * 10^1 + 3 * 10^0.
-	 */
-	rank(index: number): number {
-		return this.#ranks[this.#ranks.length - index - 1];
-	}
-
-	/**
-	 * Returns number ranks as an array.
-	 */
-	toArray(encode?: Encode): RanksInput {
-		return encode
-			? translate(this.#ranks, encode)
-			: this.#ranks;
-	}
-
-	/**
 	 * Constructs a string representation with specified radix.
 	 */
 	toString(encode?: Encode, sep = ""): string {
-		return this.toArray(encode)
-			.join(sep);
+		return this.getRanks(encode).join(sep);
 	}
 
 	/**
