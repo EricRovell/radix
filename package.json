@@ -54,7 +54,7 @@
 		"test": "tests"
 	},
 	"engines": {
-		"node": ">=12.0"
+		"node": ">=10.4"
 	},
 	"sideEffects": false,
 	"lint-staged": {
