@@ -1,8 +1,15 @@
 export { Radix, radix } from "./radix";
 export type {
-	Decodings,
-	Decoder,
+	Encode,
+	Decode,
 	RadixOptions,
 	Ranks,
 	RanksInput
 } from "./types";
+
+export {
+	encodingBinary,
+	encodingDecimal,
+	encodingHexadecimalLower,
+	encodingHexadecimalUpper
+} from "./encodings";

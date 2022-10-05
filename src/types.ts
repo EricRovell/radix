@@ -1,25 +1,20 @@
-export type RanksInput = Array<string | number>;
-export type Ranks = number[];
+export type RankInput = string | number
+export type RanksInput = RankInput[];
+export type Rank = number;
+export type Ranks = Rank[];
 
-export type Decoder = (rank: number | string) => number | string;
+export type Encode =
+	| ((rank: Rank) => RankInput)
+	| Record<Rank, RankInput>
 
-/**
- * Defines a decoding object.
- * Values should be a number as ranks are always numeric.
- */
-export type Decodings = Record<number | string, number>;
-
-/**
- * Defines a decoding set of options.
- */
-export interface Decoding {
-	decoding?: Decodings;
-	decoder?: Decoder;
-}
+export type Decode =
+	| ((rank: RankInput) => Rank)
+	| Record<RankInput, Rank>;
 
 /**
  * Defines options available for constructor.
  */
-export interface RadixOptions extends Decoding {
+export interface RadixOptions {
+	decode?: Decode;
 	minRanks?: number;
 }

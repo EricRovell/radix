@@ -102,32 +102,29 @@ radix([ 1, 0, 1, 0], 2).decimal // -> 10
   In case of invalid input the fallback is number 0 in binary system.
 
   ```ts
-  radix().asDecimal                           // -> 0
-  radix([ 1, 0, 0 ]).asDecimal                // -> 4
-  radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).asDecimal // -> 77
-  radix([ 5, 0 ], 2).asDecimal                // -> 0, invalid input
+  radix().decimal                            // -> 0
+  radix([ 1, 0, 0 ]).decimal                 // -> 4
+  radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).decimal  // -> 77
+  radix([ 5, 0 ], 2).decimal                 // -> 0, invalid input
   ```
 </details>
 
 #### Decoding
 
-To define custom ranks decoding, provide a decodings object to the constructor options.
+To define custom ranks decoding, provide a decodings object:
 
 ```ts
 import type { Decodings } from "@ericrovell/radix";
 
-const decoding: Decodings = {
+const decodings: Decodings = {
   "A": 0,
   "B": 1,
 };
 
-radix([ "A", "B" ], 2, { decoding }).ranks(); // -> [ 1, 0 ]
-radix([ "A", "B", 7 ], 10, { decoding }).ranks(); // -> [ 1, 0, 7 ]
+radix([ "A", "B" ], 2, { decode: decodings }).ranks(); // -> [ 1, 0 ]
 ```
 
-#### Decoder
-
-To define functional custom ranks decoding, provide a function to the constructor options. 
+Also, the decoder function can be provided instead:
 
 ```ts
 import type { Decoder } from "@ericrovell/radix";
@@ -136,10 +133,6 @@ const decoder: Decoder = rank => rank ? "A" : rank;
 
 radix([ "A", 1 ], 2, { decoder }).ranks(); // -> [ 0, 1 ]
 ```
-
-Decoder and decodings can be used simultaniously, at the end of the process each rank converted to numeric type:
-
-`input ranks` -> `decoder` -> `decodings` -> `Number constructor` -> `numeric ranks`.
 
 #### Minimal number of ranks
 
@@ -155,15 +148,56 @@ radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }); // -> [ 1, 2, 3, 4 ]
 
 <details>
   <summary>
-    <code>.toString(radix = 10, sep = "")</code>
+    <code>.toString(encode?: Encode, sep = "")</code>
   </summary>
 
-  Constructs a string representation with specified radix and separator.
+  Constructs a number's string representation.
 
   ```ts
-  radix([ 1, 0, 1, 0 ], 2).toString()       // -> "10"
-  radix([ 1, 0, 1, 0 ], 2).toString(8)      // -> "12"
-  radix([ 1, 0, 1, 0 ], 2).toString(8, ",") // -> "1,2"
+  radix([ 2, 3, 4 ], 10).toString()       // -> "234"
+  ```
+
+  The custom encoding can be specified using the encodings object:
+
+  ```ts
+  import type { Encodings } from "@ericrovell/radix";
+
+  const binary = {
+    0: "A",
+    1: "B"
+  };
+
+  radix([ 1, 0, 1, 0 ], 2).toString(binary)  // -> "BABA"
+  ```
+
+  Also, the decoder function can be provided instead:
+
+  ```ts
+  import type { Encoder } from "@ericrovell/radix";
+
+  const binaryEncoder: Encoder = rank => {
+    return rank === 0 ? "A" : "B"
+  };
+
+  radix([ 1, 0, 1, 0 ], 2).toString(binaryEncoder)  // -> "BABA"
+  ```
+
+  To define a separator, provide a second argument:
+
+  ```ts
+  radix([ 1, 0, 1, 0 ], 2).toString(undefined, "+")  // -> "1+0+1+0"
+  ```
+</details>
+
+<details>
+  <summary>
+    <code>.toArray(encode?: Encode)</code>
+  </summary>
+
+  Constructs a number's array representation. Method works the same as `.ranks` property, but here custom encoding can be defined the same way as within `.toString(encode?: Encode)` method.
+
+  ```ts
+  radix([ 2, 3, 4 ], 10).toArray()  // -> "[ "2", "3", "4" ]"
   ```
 </details>
 
@@ -179,12 +213,25 @@ radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }); // -> [ 1, 2, 3, 4 ]
   radix([ 2, 4, 5 ], 8).decimal    // -> 165
   ```
 
-  Do not use if the decimal value exceed the safe integer value as it returns `Number` instance, not `BigInt`.
-  Instead, create `BigInt` instances from string representation:
+  Do not use if the decimal value exceed the safe integer value as it returns `Number` instance which is not safe.
+  Use `.valueOf()` instead.
+</details>
+
+<details>
+  <summary>
+    <code>.valueOf()</code>
+  </summary>
+
+  Returns the primitive value as decimal radix `BigInt` value.
 
   ```ts
-  const numberAsString = radix([ 2, 0, 1 ], 100).toString(10);
-  const number = BigInt(numberAsString);
+  radix([ 2, 3 ], 10).valueOf() // -> 23n
+  ```
+
+  Method may be useful for coercion:
+
+  ```ts
+  radix([ 1, 2 ], 10) + radix([ 2, 3 ], 10) // 35n
   ```
 </details>
 
@@ -289,6 +336,23 @@ radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }); // -> [ 1, 2, 3, 4 ]
   123 = 1 * 10^**2** + 2 * 10^**1** + 3 * 10^**0**
 </details>
 
+## Encodings
+
+A list of predefined encodings available for import:
+
+- encodingBinary;
+- encodingDecimal;
+- encodingHexadecimalUpper;
+- encodingHexadecimalLower;
+
+```ts
+import { radix, encodingHexadecimalUpper } from "@ericrovell/radix";
+
+radix([ 5, 6, 4, 6, 5, 4 ], 10)
+  .setRadix(16)
+  .toString(encodingHexadecimalUpper); // 89DAE
+```
+
 ## Extending functionality
 
 To extend functionality for your needs, just extend the `Radix` class available at the root path:
@@ -310,14 +374,3 @@ class RadixExtended extends Radix {
 const extended = new RadixExtended([ 1, 0, 1, 0 ], 2);
 extended.sum() // -> 2
 ```
-
-## Roadmap
-
-- [x] input validation;
-- [x] ranks mutations;
-- [x] decoding;
-- [ ] encoding;
-- [ ] arithmetics;
-- [ ] user defined ranks dictionaries;
-- [ ] `BigInt` integration;
-- [ ] support `string` input;
