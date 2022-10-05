@@ -109,40 +109,52 @@ radix([ 1, 0, 1, 0], 2).decimal // -> 10
   ```
 </details>
 
-#### Decoding
+#### Options
 
-To define custom ranks decoding, provide a decodings object:
+All options are optional.
 
-```ts
-import type { Decodings } from "@ericrovell/radix";
+<details>
+  <summary>
+    <code>`decoding = undefined`</code>
+  </summary>
 
-const decodings: Decodings = {
-  "A": 0,
-  "B": 1,
-};
+  To define custom ranks decoding, provide a decodings object:
 
-radix([ "A", "B" ], 2, { decode: decodings }).ranks(); // -> [ 1, 0 ]
-```
+  ```ts
+  import type { Decodings } from "@ericrovell/radix";
 
-Also, the decoder function can be provided instead:
+  const decodings: Decodings = {
+    "A": 0,
+    "B": 1,
+  };
 
-```ts
-import type { Decoder } from "@ericrovell/radix";
+  radix([ "A", "B" ], 2, { decode: decodings }).ranks(); // -> [ 1, 0 ]
+  ```
 
-const decoder: Decoder = rank => rank ? "A" : rank;
+  Also, the decoder function can be provided instead:
 
-radix([ "A", 1 ], 2, { decoder }).ranks(); // -> [ 0, 1 ]
-```
+  ```ts
+  import type { Decoder } from "@ericrovell/radix";
 
-#### Minimal number of ranks
+  const decoder: Decoder = rank => rank ? "A" : rank;
 
-In case you need some minimal number of ranks within the radix number, provide a `minRanks` option via constructor:
+  radix([ "A", 1 ], 2, { decoder }).ranks(); // -> [ 0, 1 ]
+  ```
+</details>
 
-```ts
-radix([ 1 ], 2, { minRanks: 5 }).ranks;     // -> [ 0, 0, 0, 0, 1 ]
-radix([ 1 ], 2, { minRanks: -5 }).ranks;    // -> [ 1 ]
-radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }); // -> [ 1, 2, 3, 4 ]
-```
+<details>
+  <summary>
+    <code>`minRanks = undefined`</code>
+  </summary>
+
+  Sets the minimal number of ranks.
+
+  ```ts
+  radix([ 1 ], 2, { minRanks: 5 }).ranks;     // -> [ 0, 0, 0, 0, 1 ]
+  radix([ 1 ], 2, { minRanks: -5 }).ranks;    // -> [ 1 ]
+  radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }); // -> [ 1, 2, 3, 4 ]
+  ```
+</details>
 
 ### Methods and properties
 
