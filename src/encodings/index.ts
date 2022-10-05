@@ -4,7 +4,7 @@ export const encodingBinary = {
 };
 
 export const encodingDecimal = {
-	...binary,
+	...encodingBinary,
 	2: 2,
 	3: 3,
 	4: 4,
@@ -16,7 +16,7 @@ export const encodingDecimal = {
 };
 
 export const encodingHexadecimalUpper = {
-	...decimal,
+	...encodingDecimal,
 	10: "A",
 	11: "B",
 	12: "C",
@@ -26,7 +26,7 @@ export const encodingHexadecimalUpper = {
 };
 
 export const encodingHexadecimalLower = {
-	...decimal,
+	...encodingDecimal,
 	10: "a",
 	11: "b",
 	12: "c",
