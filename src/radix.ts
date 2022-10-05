@@ -1,6 +1,6 @@
 import { construct } from "./construct";
 import { encode as translate, radixTransform } from "./lib";
-import type { RanksInput, Ranks, RadixOptions, Encode } from "./types";
+import type { Input, Ranks, RadixOptions, Encode } from "./types";
 
 /**
  * Provides functionality to store, transform, and manipulate number with different radixes.
@@ -11,8 +11,8 @@ export class Radix {
 	#options: RadixOptions;
 	#valid: boolean;
 
-	constructor(ranks: RanksInput = [ 0 ], radix = 2, options: RadixOptions = {}) {
-		const number = construct(ranks, radix, options);
+	constructor(input: Input = [ 0 ], radix = 10, options: RadixOptions = {}) {
+		const number = construct(input, radix, options);
 		this.#valid = number.valid;
 		this.#ranks = number.ranks;
 		this.#radix = number.radix;
@@ -108,6 +108,6 @@ export class Radix {
 /**
  * Provides functionality to store, transform, and manipulate number with different radixes.
  */
-export function radix(ranks?: RanksInput, radix?: number, options?: RadixOptions): Radix {
-	return new Radix(ranks, radix, options);
+export function radix(input?: Input, radix?: number, options?: RadixOptions): Radix {
+	return new Radix(input, radix, options);
 }

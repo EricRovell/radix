@@ -1,5 +1,6 @@
-import { checkNumber, decode, prependZeros } from "./lib";
-import type { RanksInput, RadixOptions, Ranks } from "./types";
+import { parse } from "./lib/parser";
+import { checkNumber, prependZeros } from "./lib";
+import type { Input, RadixOptions, Ranks } from "./types";
 
 interface ParsedNumber {
 	radix: number;
@@ -7,22 +8,20 @@ interface ParsedNumber {
 	valid: boolean;
 }
 
-export function construct(ranks: RanksInput = [ 0 ], radix = 2, options: RadixOptions = {}): ParsedNumber {
-	const decoded = decode(ranks, options.decode);
-	const fixedLength = prependZeros(decoded, options.minRanks);
-	const valid = checkNumber(fixedLength, radix);
+export function construct(input: Input = [ 0 ], radix = 10, options: RadixOptions = {}): ParsedNumber {
+	const parsed = parse(input, options.decode);
 
-	if (!valid) {
+	if (parsed && checkNumber(parsed, radix)) {
 		return {
-			valid,
-			ranks: [ 0 ],
-			radix: 2
+			valid: true,
+			ranks: prependZeros(parsed, options.minRanks),
+			radix
 		};
 	}
 
 	return {
-		valid,
-		ranks: fixedLength,
-		radix
+		valid: false,
+		ranks: [ 0 ],
+		radix: 10
 	};
 }

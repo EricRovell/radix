@@ -1,4 +1,4 @@
-export type RankInput = string | number
+export type RankInput = string | number;
 export type RanksInput = RankInput[];
 export type Rank = number;
 export type Ranks = Rank[];
@@ -20,3 +20,10 @@ export interface RadixOptions {
 	decode?: Decode;
 	minRanks?: number;
 }
+
+export type Input =
+	| number
+	| bigint
+	| string
+	| string[]
+	| number[];

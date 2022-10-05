@@ -1,7 +1,7 @@
 /**
  * Transforms a natural number to it's radix representation.
  */
-function toDigits(number: bigint, radix: bigint): number[] {
+export function toDigits(number: bigint, radix: bigint): number[] {
 	let source = number;
 	const ranks: number[] = [];
 
@@ -22,7 +22,7 @@ function toDigits(number: bigint, radix: bigint): number[] {
 /**
  * Computes a number from given digits in given radix
  */
-function fromDigits(ranks: number[], radix: number): bigint {
+export function fromDigits(ranks: number[], radix: number): bigint {
 	return ranks.reduce((acc, rank) => {
 		return BigInt(radix) * BigInt(acc) + BigInt(rank);
 	}, 0n);
