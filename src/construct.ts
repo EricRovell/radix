@@ -8,7 +8,7 @@ interface ParsedNumber {
 }
 
 export function construct(ranks: RanksInput = [ 0 ], radix = 2, options: RadixOptions = {}): ParsedNumber {
-	const decoded = decode(ranks, options);
+	const decoded = decode(ranks, options.decode);
 	const fixedLength = prependZeros(decoded, options.minRanks);
 	const valid = checkNumber(fixedLength, radix);
 
