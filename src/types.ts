@@ -3,13 +3,15 @@ export type RanksInput = RankInput[];
 export type Rank = number;
 export type Ranks = Rank[];
 
-export type Encode =
-	| ((rank: Rank) => RankInput)
-	| Record<Rank, RankInput>
+export type Encodings = Record<Rank, RankInput>;
+export type Encoder = (rank: Rank) => RankInput;
 
-export type Decode =
-	| ((rank: RankInput) => Rank)
-	| Record<RankInput, Rank>;
+export type Encode = Encoder | Encodings;
+
+export type Decodings = Record<RankInput, Rank>;
+export type Decoder = (rank: RankInput) => Rank;
+
+export type Decode = Decodings | Decoder;
 
 /**
  * Defines options available for constructor.
