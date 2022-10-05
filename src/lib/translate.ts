@@ -29,7 +29,7 @@ export function decode(ranks: RanksInput, translator?: Decode): Ranks {
 	}
 
 	if (translator && typeof translator === "object") {
-		return ranks.map(rank => translator[rank] ?? rank);
+		return ranks.map(rank => translator[rank] ?? Number(rank));
 	}
 
 	return ranks.map(Number);

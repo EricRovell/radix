@@ -9,6 +9,7 @@
 - [feat]: `.valueOf()` method for calculating primitive values;
 - [enhancement]: using native private class properties;
 - [feat]: provide custom encodings preset;
+- [feat]: provide more input options;
 
 ## [0.6.1] (2021-10-12)
 

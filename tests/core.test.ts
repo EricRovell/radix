@@ -12,28 +12,77 @@ describe("Constructor", () => {
 	});
 	it("Constructs an instance without radix specified", () => {
 		const instance = radix([ 1, 0, 1 ]);
-		expect(instance.radix).toBe(2);
+		expect(instance.radix).toBe(10);
 		expect(instance.getRanks()).toEqual([ 1, 0, 1 ]);
 	});
 	it("Constructs an instance without any parameters", () => {
 		const instance = radix();
-		expect(instance.radix).toBe(2);
+		expect(instance.radix).toBe(10);
 		expect(instance.getRanks()).toEqual([ 0 ]);
 	});
 	it("Constructs an instance with decoding option", () => {
 		const decode = { "A": 0, "B": 1 };
 		expect(radix([ "B", "A", "B" ], 2, { decode }).getRanks()).toEqual([ 1, 0, 1 ]);
-		expect(radix([ "A", "A", "B", 3 ], 4, { decode }).getRanks()).toEqual([ 0, 0, 1, 3 ]);
+		expect(radix([ "A", "A", "B", "3" ], 4, { decode }).getRanks()).toEqual([ 0, 0, 1, 3 ]);
 	});
 	it("Constructs an instance with decoder option", () => {
 		const decode: Decode = rank => rank === "A" ? 0 : 1;
 		expect(radix([ "B", "A", "B" ], 2, { decode }).getRanks()).toEqual([ 1, 0, 1 ]);
-		expect(radix([ "A", "A", "B", 3 ], 4, { decode }).getRanks()).toEqual([ 0, 0, 1, 1 ]);
+		expect(radix([ "A", "A", "B", "3" ], 4, { decode }).getRanks()).toEqual([ 0, 0, 1, 1 ]);
 	});
 	it("Constructs an instance with fixed minimal number of ranks option", () => {
 		expect(radix([ 1 ], 2, { minRanks: 5 }).getRanks()).toEqual([ 0, 0, 0, 0, 1 ]);
 		expect(radix([ 1 ], 2, { minRanks: -5 }).getRanks()).toEqual([ 1 ]);
 		expect(radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }).getRanks()).toEqual([ 1, 2, 3, 4 ]);
+	});
+});
+
+describe("Parsing", () => {
+	it("Parses an integer", () => {
+		expect(radix(1234).getRanks()).toEqual([ 1, 2, 3, 4 ]);
+	});
+	it("Does not parse an integer with wrong radix", () => {
+		expect(radix(1234, 2).valid).toBe(false);
+	});
+	it("Parses a bigint", () => {
+		expect(radix(1234n).getRanks()).toEqual([ 1, 2, 3, 4 ]);
+	});
+	it("Does not parse a bigint with wrong radix", () => {
+		expect(radix(1234n, 2).valid).toBe(false);
+	});
+	it("Parses a string", () => {
+		expect(radix("1234").getRanks()).toEqual([ 1, 2, 3, 4 ]);
+	});
+	it("Does not parse a string with wrong radix", () => {
+		expect(radix("1234", 2).valid).toBe(false);
+	});
+	it("Parses an array of numbers", () => {
+		expect(radix([ 1, 2, 3, 4 ]).getRanks()).toEqual([ 1, 2, 3, 4 ]);
+	});
+	it("Does not parse an array of numbers with wrong radix", () => {
+		expect(radix([ 1, 2, 3, 4 ], 2).valid).toBe(false);
+	});
+	it("Does not parse an array of numbers with wrong input", () => {
+		// @ts-expect-error test invalid input
+		expect(radix([ 1, 2, "3", 4 ], 2).valid).toBe(false);
+		// @ts-expect-error test invalid input
+		expect(radix([ 1, 2.5, "3", 4 ], 2).valid).toBe(false);
+		// @ts-expect-error test invalid input
+		expect(radix([ 1n, 2, "3", 4 ], 2).valid).toBe(false);
+	});
+	it("Parses an array of strings", () => {
+		expect(radix([ "1", "2", "3", "4" ]).getRanks()).toEqual([ 1, 2, 3, 4 ]);
+	});
+	it("Does not parse an array of numbers with wrong radix", () => {
+		expect(radix([ "1", "2", "3", "4" ], 2).valid).toBe(false);
+	});
+	it("Does not parse an array of numbers with wrong input", () => {
+		// @ts-expect-error test invalid input
+		expect(radix([ 1, "2", "3", "4" ], 10).valid).toBe(false);
+		expect(radix([ "1", "2.5", "3", "4" ], 10).valid).toBe(false);
+		expect(radix([ 1, 1.5, 2, 3 ], 10).valid).toBe(false);
+		// @ts-expect-error test invalid input
+		expect(radix([ "1", "2", 3n, "4" ], 10).valid).toBe(false);
 	});
 });
 

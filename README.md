@@ -93,7 +93,7 @@ radix([ 1, 0, 1, 0], 2).decimal // -> 10
 
 <details>
   <summary>
-    <code>radix(ranks = [ 0 ], radix = 2, options?)</code>
+    <code>radix(input = [ 0 ], radix = 10, options?)</code>
   </summary>
 
   Constructs a number from given ranks and specified radix.
@@ -109,13 +109,44 @@ radix([ 1, 0, 1, 0], 2).decimal // -> 10
   ```
 </details>
 
+#### Input options
+
+The valid types of input are:
+
+- `number`: Any positive integer number, float values are considered invalid;
+- `bigint`;
+- `string`;
+- `number[]`: Homogeneous array of integer numbers;
+- `string[]`: Homogeneous array of string symbols;
+
+`number` and `bigint` are considered to have the `radix = 10`, and this `radix` value is default.
+
+`number[]` and `string[]` input decoded first (if such option is passed, more about soon), and after parsed as number ranks.
+
+```ts
+// integer
+radix(132).getRanks(); // -> [ 1, 3, 2 ]
+
+// bigint
+radix(456n).getRanks(); // -> [ 4, 5, 6 ]
+
+// string
+radix("1234").getRanks(); // -> [ 1, 2, 3, 4 ]
+
+// number[]
+radix([ 5, 6, 7, 8 ]).getRanks(); // -> [ 5, 6, 7, 8 ]
+
+// string[]
+radix([ "1", "2", "3" ]).getRanks(); // -> [ 1, 2, 3 ]
+```
+
 #### Options
 
-All options are optional.
+All constructor options are optional.
 
 <details>
   <summary>
-    <code>`decoding = undefined`</code>
+    <code>`decoding`</code>
   </summary>
 
   To define custom ranks decoding, provide a decodings object:
@@ -128,7 +159,7 @@ All options are optional.
     "B": 1,
   };
 
-  radix([ "A", "B" ], 2, { decode: decodings }).ranks(); // -> [ 1, 0 ]
+  radix([ "A", "B" ], 2, { decode: decodings }).getRanks(); // -> [ 1, 0 ]
   ```
 
   Also, the decoder function can be provided instead:
@@ -138,20 +169,20 @@ All options are optional.
 
   const decoder: Decoder = rank => rank ? "A" : rank;
 
-  radix([ "A", 1 ], 2, { decoder }).ranks(); // -> [ 0, 1 ]
+  radix([ "A", 1 ], 2, { decoder }).getRanks(); // -> [ 0, 1 ]
   ```
 </details>
 
 <details>
   <summary>
-    <code>`minRanks = undefined`</code>
+    <code>`minRanks`</code>
   </summary>
 
   Sets the minimal number of ranks.
 
   ```ts
-  radix([ 1 ], 2, { minRanks: 5 }).ranks;     // -> [ 0, 0, 0, 0, 1 ]
-  radix([ 1 ], 2, { minRanks: -5 }).ranks;    // -> [ 1 ]
+  radix([ 1 ], 2, { minRanks: 5 }).getRanks();     // -> [ 0, 0, 0, 0, 1 ]
+  radix([ 1 ], 2, { minRanks: -5 }).getRanks();    // -> [ 1 ]
   radix([ 1, 2, 3, 4 ], 10, { minRanks: 3 }); // -> [ 1, 2, 3, 4 ]
   ```
 </details>
@@ -182,7 +213,7 @@ All options are optional.
   Returns ranks the number consists of.
 
   ```ts
-  radix([ 1, 0, 1], 2).ranks // -> [ 1, 0, 1 ]
+  radix([ 1, 0, 1 ], 2).getRanks() // -> [ 1, 0, 1 ]
   ```
 
   The output may be encoded using the `encode` argument.
@@ -254,9 +285,9 @@ All options are optional.
   Changes the number's radix and returns a new `Radix` instance.
 
   ```ts
-  radix([ 1, 0, 1, 0 ], 2).setRadix(10);        // [ 1, 0 ]
-  radix([ 1, 0, 1, 0 ], 2).setRadix(8);         // [ 1, 2 ]
-  radix([ 1, 0, 1, 0 ], 2).setRadix(2);         // [ 1, 0, 1, 0 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(10).getRanks();   // [ 1, 0 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(8).getRanks();    // [ 1, 2 ]
+  radix([ 1, 0, 1, 0 ], 2).setRadix(2).getRanks();    // [ 1, 0, 1, 0 ]
   ```
 </details>
 
@@ -270,10 +301,10 @@ All options are optional.
   Note: The index is tied to the power, read more at `.getRank()` method.
 
   ```ts
-  radix([ 1, 0, 1 ], 2).setRank(0).ranks                       // -> [ 1, 0, 0 ]);
-  radix([ 1, 0, 1 ], 2).setRank(1, 1).ranks                    // -> [ 1, 1, 1 ]);
-  radix([ 4, 0, 5, 7 ], 8).setRank(7, 3).ranks                 // -> [ 7, 0, 5, 7 ]);
-  radix([ 1, 0, 1, 0, 1, 1, 1, 0, 1 ], 2).setRank(1, 5).ranks  // -> [ 1, 0, 1, 1, 1, 1, 1, 0, 1 ]);
+  radix([ 1, 0, 1 ], 2).setRank(0).getRanks()                       // -> [ 1, 0, 0 ]);
+  radix([ 1, 0, 1 ], 2).setRank(1, 1).getRanks()                    // -> [ 1, 1, 1 ]);
+  radix([ 4, 0, 5, 7 ], 8).setRank(7, 3).getRanks()                 // -> [ 7, 0, 5, 7 ]);
+  radix([ 1, 0, 1, 0, 1, 1, 1, 0, 1 ], 2).setRank(1, 5).getRanks()  // -> [ 1, 0, 1, 1, 1, 1, 1, 0, 1 ]);
   ```
 </details>
 
@@ -324,13 +355,16 @@ All options are optional.
   It complicated the code too much and too primitive to be practical.
 
   Each rank should be non-negative integer and have a value less than radix.
+  Valid input options are covered [here](#input-options).
 
   ```ts
-  radix([ 1, 1, 0 ], 2).valid    // -> true
-  radix([ 0, 1, 2, 8 ], 8).valid // -> false, rank can't be 8 for the base 8
-  radix([ 1, 1, 0 ], 2).valid    // -> true
-  radix([ 1, 1, 0 ], 1.5).valid  // -> false, radix should be an integer
-  radix([ 0, 1, 2, 8 ], 0).valid // -> false, radix should be a positive integer
+  radix([ 1, 1, 0 ], 2).valid        // -> true
+  radix([ 0, 1, 2, 8 ], 8).valid     // -> false, rank can't be 8 for the base 8
+  radix([ 1, 1, 0 ], 2).valid        // -> true
+  radix([ 1, 1, 0 ], 1.5).valid      // -> false, radix should be an integer
+  radix([ 0, 1, 2, 8 ], 0).valid     // -> false, radix should be a positive integer
+  radix(2.5, 10).valid               // -> false, unsupported input
+  radix([ 0, "1", 2, 8 ], 10).valid  // -> false, array should be homogeneous
   ```
 </details>
 
@@ -348,7 +382,7 @@ All options are optional.
   Method may be useful for coercion:
 
   ```ts
-  radix([ 1, 2 ], 10) + radix([ 2, 3 ], 10) // 35n
+  radix([ 1, 2 ], 10) + radix([ 2, 3 ], 10) // -> 35n
   ```
 </details>
 
@@ -356,17 +390,17 @@ All options are optional.
 
 A list of predefined encodings available for import:
 
-- encodingBinary;
-- encodingDecimal;
-- encodingHexadecimalUpper;
-- encodingHexadecimalLower;
+- `encodingBinary`;
+- `encodingDecimal`;
+- `encodingHexadecimalUpper`;
+- `encodingHexadecimalLower`;
 
 ```ts
 import { radix, encodingHexadecimalUpper } from "@ericrovell/radix";
 
 radix([ 5, 6, 4, 6, 5, 4 ], 10)
   .setRadix(16)
-  .toString(encodingHexadecimalUpper); // 89DAE
+  .toString(encodingHexadecimalUpper); // -> 89DAE
 ```
 
 ## Extending functionality
