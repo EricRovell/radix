@@ -1,43 +1,53 @@
 import { construct } from "./construct";
-import { radixTransform } from "./lib";
-import type { RanksInput, Ranks, RadixOptions } from "./types";
+import { encode as translate, radixTransform } from "./lib";
+import type { RanksInput, Ranks, RadixOptions, Encode } from "./types";
 
 /**
  * Provides functionality to store, transform, and manipulate number with different radixes.
  */
 export class Radix {
-	private readonly checkStatus: boolean;
-	private readonly digits: Ranks;
-	private readonly base: number;
-	private readonly options: RadixOptions;
+	#ranks: Ranks;
+	#radix: number;
+	#options: RadixOptions;
+	#valid: boolean;
 
 	constructor(ranks: RanksInput = [ 0 ], radix = 2, options: RadixOptions = {}) {
 		const number = construct(ranks, radix, options);
-		this.checkStatus = number.valid;
-		this.digits = number.ranks;
-		this.base = number.radix;
-		this.options = options;
+		this.#valid = number.valid;
+		this.#ranks = number.ranks;
+		this.#radix = number.radix;
+		this.#options = options;
 	}
 
 	/**
-	 * Returns the boolean indicating whether or not the input was valid.
+	 * Returns the numeric decimal representation.
+	 *
+	 * ! Do not use when you need big integers as it returns `Number` instance.
+	 * Use `.valueOf()` instead.
 	 */
-	get valid(): boolean {
-		return this.checkStatus;
+	get decimal(): number {
+		return Number(this.setRadix(10).toString());
 	}
 
 	/**
 	 * Returns the number's radix value.
 	 */
 	get radix(): number {
-		return this.base;
+		return this.#radix;
 	}
 
 	/**
 	 * Returns ranks the number consists of.
 	 */
-	get ranks(): number[] {
-		return this.digits;
+	get ranks() {
+		return this.#ranks;
+	}
+
+	/**
+	 * Returns the boolean indicating whether or not the input was valid.
+	 */
+	get valid(): boolean {
+		return this.#valid;
 	}
 
 	/**
@@ -49,49 +59,57 @@ export class Radix {
 	 * as 123 = 1 * 10^2 + 2 * 10^1 + 3 * 10^0.
 	 */
 	rank(index: number): number {
-		return this.digits[this.digits.length - index - 1];
+		return this.#ranks[this.#ranks.length - index - 1];
+	}
+
+	/**
+	 * Returns number ranks as an array.
+	 */
+	toArray(encode?: Encode): RanksInput {
+		return encode
+			? translate(this.#ranks, encode)
+			: this.#ranks;
 	}
 
 	/**
 	 * Constructs a string representation with specified radix.
 	 */
-	toString(radix = 10, sep = ""): string {
-		return this.setRadix(radix).digits.join(sep);
-	}
-
-	/**
-	 * Returns the numeric decimal representation.
-	 *
-	 * ! Do not use when you need big integers as it returns `Number` instance.
-	 */
-	get decimal(): number {
-		return Number(this.toString(10));
+	toString(encode?: Encode, sep = ""): string {
+		return this.toArray(encode)
+			.join(sep);
 	}
 
 	/**
 	 * Changes the number's radix and returns a new `Radix` instance.
 	 */
 	setRadix(radix: number): Radix {
-		const transformed = radixTransform(this.digits, this.radix, radix);
-		return new Radix(transformed, radix, this.options);
+		const transformed = radixTransform(this.#ranks, this.radix, radix);
+		return new Radix(transformed, radix, this.#options);
 	}
 
 	/**
 	 * Changes the value of specific rank and returns the number as new `Radix` instance.
 	 */
 	setRank(value = 0, rank = 0): Radix {
-		if (rank < 0 || rank > this.digits.length) {
+		if (rank < 0 || rank > this.#ranks.length) {
 			return new Radix();
 		}
 
 		// array indexes and ranks have reverse order by comparison
-		const rankIndex = this.digits.length - 1 - rank;
+		const rankIndex = this.#ranks.length - 1 - rank;
 
 		return new Radix(
-			this.digits.map((digit, index) => index === rankIndex ? value : digit),
+			this.#ranks.map((digit, index) => index === rankIndex ? value : digit),
 			this.radix,
-			this.options
+			this.#options
 		);
+	}
+
+	/**
+	 * Returns the primitive value as the the base 10 BigInt.
+	 */
+	valueOf() {
+		return BigInt(this.setRadix(10).toString());
 	}
 }
 
