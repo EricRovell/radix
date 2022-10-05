@@ -102,10 +102,10 @@ radix([ 1, 0, 1, 0], 2).decimal // -> 10
   In case of invalid input the fallback is number 0 in binary system.
 
   ```ts
-  radix().asDecimal                           // -> 0
-  radix([ 1, 0, 0 ]).asDecimal                // -> 4
-  radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).asDecimal // -> 77
-  radix([ 5, 0 ], 2).asDecimal                // -> 0, invalid input
+  radix().decimal                            // -> 0
+  radix([ 1, 0, 0 ]).decimal                 // -> 4
+  radix([ 1, 0, 0, 1, 1, 0, 1 ], 2).decimal  // -> 77
+  radix([ 5, 0 ], 2).decimal                 // -> 0, invalid input
   ```
 </details>
 
@@ -127,7 +127,7 @@ radix([ "A", "B", 7 ], 10, { decoding }).ranks(); // -> [ 1, 0, 7 ]
 
 #### Decoder
 
-To define functional custom ranks decoding, provide a function to the constructor options. 
+To define functional custom ranks decoding, provide a function to the constructor options.
 
 ```ts
 import type { Decoder } from "@ericrovell/radix";
