@@ -3,6 +3,12 @@
 ## Unreleased
 
 - [enhancement]: `BigInt` used internally for ranks transformations to preserve the correct value even for unsafe integer values;
+- [feat]: `encode` option available via `.toString(encode?, sep = "")` and `.toArray(encode?)` methods;
+- [breaking]: remove `radix` option from `toString()` method;
+- [feat]: `.toArray(encode?)` method;
+- [feat]: `.valueOf()` method for calculating primitive values;
+- [enhancement]: using native private class properties;
+- [feat]: provide custom encodings preset;
 
 ## [0.6.1] (2021-10-12)
 
