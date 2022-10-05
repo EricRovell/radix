@@ -46,7 +46,8 @@
 		".": {
 			"import": "./index.mjs",
 			"require": "./index.js",
-			"default": "./index.mjs"
+			"default": "./index.mjs",
+			"types": "./index.d.ts"
 		},
 		"./package.json": "./package.json"
 	},
@@ -64,5 +65,8 @@
 	"simple-git-hooks": {
 		"pre-commit": "npx lint-staged",
 		"pre-push": "pnpm run lint && pnpm run typecheck"
-	}
+	},
+	"files": [
+		"dist/**/*"
+	]
 }
