@@ -1,6 +1,5 @@
-import { parse } from "./parser";
-import { checkNumber, prependZeros } from ".";
-import type { Input, RadixOptions, Ranks } from "../types";
+import { checkNumber, parse, prependZeros } from "./lib";
+import type { Input, RadixOptions, Ranks } from "./types";
 
 interface ParsedNumber {
 	radix: number;

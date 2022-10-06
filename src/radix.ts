@@ -1,4 +1,5 @@
-import { construct, encode as translate, radixTransform } from "./lib";
+import { encode as translate, radixTransform } from "./lib";
+import { construct } from "./construct";
 import type { Input, Ranks, RadixOptions, Encode } from "./types";
 
 /**
