@@ -1,13 +1,13 @@
 # Changelog
 
-## Unreleased
+## [1.0.0] (2022-10-07)
 
 - [enhancement]: `BigInt` used internally for ranks transformations to preserve the correct value even for unsafe integer values;
-- [feat]: `encode` option available via `.toString(encode?, sep = "")` and `.toArray(encode?)` methods;
+- [feat]: `encode` option available via `.toString(encode?, sep = "")`;
 - [breaking]: remove `radix` option from `toString()` method;
-- [feat]: `.toArray(encode?)` method;
 - [feat]: `.valueOf()` method for calculating primitive values;
 - [enhancement]: using native private class properties;
+- [breaking]: replace `.rank()` and `.ranks` with `.getRank()` and `.getRanks()` respectively;
 - [feat]: provide more input options;
 
 ## [0.6.1] (2021-10-12)
