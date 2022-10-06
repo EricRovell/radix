@@ -54,6 +54,15 @@
 
 Radix is JavaScript library for [radix](https://en.wikipedia.org/wiki/Radix) transformations and manipulations.
 
+## Features:
+
+- Extendable;
+- Immutable;
+- No dependencies;
+- Simple API;
+- Types included;
+- Works in a browser and Node.js;
+
 ## Motivation
 
 JavaScript already has the [utility function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt) to parse and transform numbers between different radix. But it has the limitations:
