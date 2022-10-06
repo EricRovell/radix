@@ -1,6 +1,6 @@
 {
 	"name": "@ericrovell/radix",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Radix is JavaScript library for radix transformations and manipulations.",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
