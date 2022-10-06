@@ -8,10 +8,3 @@ export type {
 	Ranks,
 	RanksInput
 } from "./types";
-
-export {
-	encodingBinary,
-	encodingDecimal,
-	encodingHexadecimalLower,
-	encodingHexadecimalUpper
-} from "./encodings";
