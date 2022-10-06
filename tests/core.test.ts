@@ -1,11 +1,16 @@
 import { describe, expect, it } from "vitest";
 
-import { radix } from "../src/radix";
+import { radix, Radix } from "../src/radix";
 import { numbers } from "./fixtures";
 import type { Decode, Encode, Rank } from "../src/types";
 
 describe("Constructor", () => {
-	it("Constructs an instance", () => {
+	it("Constructs an instance using class", () => {
+		const instance = new Radix([ 1, 2, 3 ], 4);
+		expect(instance.radix).toBe(4);
+		expect(instance.getRanks()).toEqual([ 1, 2, 3 ]);
+	});
+	it("Constructs an instance using function", () => {
 		const instance = radix([ 1, 2, 3 ], 4);
 		expect(instance.radix).toBe(4);
 		expect(instance.getRanks()).toEqual([ 1, 2, 3 ]);
@@ -168,9 +173,10 @@ describe("String output", () => {
 		const encode: Encode = (rank: Rank) => {
 			if (rank === 0) return "A";
 			if (rank === 1) return "B";
-			return "C";
+			return rank;
 		};
 		expect(radix([ 1, 0 ], 2).toString(encode)).toBe("BA");
+		expect(radix([ 1, 0, 2 ], 3).toString(encode)).toBe("BA2");
 	});
 	it("Encodes the ranks using a dictionary with separator option", () => {
 		const encodings = { "0": "A", "1": "B" };
@@ -180,9 +186,14 @@ describe("String output", () => {
 		const encode: Encode = (rank: Rank) => {
 			if (rank === 0) return "A";
 			if (rank === 1) return "B";
-			return "C";
+			return rank;
 		};
 		expect(radix([ 1, 0 ], 2).toString(encode, "+")).toBe("B+A");
+		expect(radix([ 1, 0, 2 ], 3).toString(encode, "+")).toBe("B+A+2");
+	});
+	it("Does not encode the ranks with invalid encode option", () => {
+		expect(radix([ 1, 0 ], 2).toString(undefined)).toBe("10");
+		expect(radix([ 1, 0 ], 2).toString(undefined, "+")).toBe("1+0");
 	});
 });
 

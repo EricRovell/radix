@@ -22,7 +22,7 @@ export function toDigits(number: bigint, radix: bigint): number[] {
 /**
  * Computes a number from given digits in given radix
  */
-export function fromDigits(ranks: number[], radix: number): bigint {
+function fromDigits(ranks: number[], radix: number): bigint {
 	return ranks.reduce((acc, rank) => {
 		return BigInt(radix) * BigInt(acc) + BigInt(rank);
 	}, 0n);
