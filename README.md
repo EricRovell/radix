@@ -56,8 +56,6 @@ Radix is JavaScript library for [radix](https://en.wikipedia.org/wiki/Radix) tra
 
 ## Motivation
 
-### Technical
-
 JavaScript already has the [utility function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt) to parse and transform numbers between different radix. But it has the limitations:
 
 - radix value should be in range [ 2, 36 ];
@@ -65,13 +63,7 @@ JavaScript already has the [utility function](https://developer.mozilla.org/en-U
 
 Of course, it is possible to use [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) instead, but coercion between numbers and BigInts are not that great.
 
-In this library numbers are represented by ranks as an array items `[ 1, 2, 3 ] // same as 123` what makes it easier to work with such limitation.
-
-### Personal
-
-The main reason for this package for exist, there are plans for small educational webapp for learning numeral bases and this package will be used here. You can see the example project [here](https://numbers-ruby.vercel.app), it is a bit old and full of bugs. I have decided to do it better from scratch and the work begins here as a little package that might be usefull for someone else too.
-
-You can find the new project [here](https://radix.vercel.app). It is in early stage of development and influences of the development of this package.
+This library use ranks array to represent a number: `[ 1, 2, 3 ] // same as 123` which makes it easier to work with such limitation. `BigInt` used for internal calculations so values above safe integer threshold won't be a problem.
 
 ## Getting started
 
@@ -385,23 +377,6 @@ All constructor options are optional.
   radix([ 1, 2 ], 10) + radix([ 2, 3 ], 10) // -> 35n
   ```
 </details>
-
-## Encodings
-
-A list of predefined encodings available for import:
-
-- `encodingBinary`;
-- `encodingDecimal`;
-- `encodingHexadecimalUpper`;
-- `encodingHexadecimalLower`;
-
-```ts
-import { radix, encodingHexadecimalUpper } from "@ericrovell/radix";
-
-radix([ 5, 6, 4, 6, 5, 4 ], 10)
-  .setRadix(16)
-  .toString(encodingHexadecimalUpper); // -> 89DAE
-```
 
 ## Extending functionality
 
