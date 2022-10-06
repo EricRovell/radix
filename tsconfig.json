@@ -11,6 +11,5 @@
 		"baseUrl": "./src",
 		"paths": {}
 	},
-	"include": [ "./src/**/*" ],
-	"files": [ "./src/index.ts" ]
+	"include": [ "./src/**/*" ]
 }

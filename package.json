@@ -6,23 +6,23 @@
 	"module": "index.mjs",
 	"scripts": {
 		"build": "rm -rf ./dist/* && rollup --config",
-		"build:post": "cp *.json dist && cp *.md dist",
 		"lint": "eslint src/**/*.ts tests/**/*.ts",
-		"release:npm": "cd dist && npm publish --access public",
+		"publish": "npm publish --access public",
 		"test": "vitest run --coverage",
 		"test:watch": "vitest",
 		"typecheck": "tsc --noEmit true"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ericrovell/radix.git"
-	},
+	"repository": "github:EricRovell/radix",
 	"keywords": [
+		"base",
+		"covert",
+		"decode",
+		"encode",
 		"math",
 		"numbers",
-		"radix",
 		"number base",
-		"number radix"
+		"number radix",
+		"radix"
 	],
 	"author": "Eric Rovell",
 	"types": "index.d.ts",
@@ -44,13 +44,14 @@
 	},
 	"exports": {
 		".": {
-			"import": "./index.mjs",
-			"require": "./index.js",
-			"default": "./index.mjs",
-			"types": "./index.d.ts"
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js",
+			"default": "./dist/index.mjs",
+			"types": "./dist/index.d.ts"
 		},
 		"./package.json": "./package.json"
 	},
+	"typings": "./dist/index.d.ts",
 	"homepage": "https://github.com/ericrovell/radix#readme",
 	"directories": {
 		"test": "tests"
@@ -67,6 +68,7 @@
 		"pre-push": "pnpm run lint && pnpm run typecheck"
 	},
 	"files": [
-		"dist/**/*"
+		"dist",
+		"CHANGELOG.md"
 	]
 }
