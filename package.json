@@ -2,8 +2,8 @@
 	"name": "@ericrovell/radix",
 	"version": "1.0.0",
 	"description": "Radix is JavaScript library for radix transformations and manipulations.",
-	"main": "index.js",
-	"module": "index.mjs",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
 	"scripts": {
 		"build": "rm -rf ./dist/* && rollup --config",
 		"lint": "eslint src/**/*.ts tests/**/*.ts",
