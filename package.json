@@ -7,7 +7,7 @@
 	"scripts": {
 		"build": "rm -rf ./dist/* && rollup --config",
 		"lint": "eslint src/**/*.ts tests/**/*.ts",
-		"publish": "npm publish --access public",
+		"publish:npm": "npm publish --access public",
 		"test": "vitest run --coverage",
 		"test:watch": "vitest",
 		"typecheck": "tsc --noEmit true"
