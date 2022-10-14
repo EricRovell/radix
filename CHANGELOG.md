@@ -1,11 +1,15 @@
 # Changelog
 
-## [1.0.2] (2022-10-15)
+## [1.0.3] (2022-10-15)
 
 - [fix]: Set guard for `setRadix()` method to not pass incorrect radix value;
 - [fix]: Return `Radix` instance with `valid = false` property set on invalid `setRank()` input value;
 
-## [1.0.1] (2022-10-14)
+## [1.0.2] (2022-10-14)
+
+- [fix]: Do not use `BigInt` literals as the browser support not that great;
+
+## [1.0.1] (2022-10-07)
 
 - [fix]: Do not use `BigInt` literals as the browser support not that great;
 
