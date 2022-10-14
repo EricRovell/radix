@@ -25,7 +25,7 @@ export function toDigits(number: bigint, radix: bigint): number[] {
 function fromDigits(ranks: number[], radix: number): bigint {
 	return ranks.reduce((acc, rank) => {
 		return BigInt(radix) * BigInt(acc) + BigInt(rank);
-	}, 0n);
+	}, BigInt(0));
 }
 
 /**

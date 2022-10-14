@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.1] (2022-10-14)
+
+- [fix]: Do not use `BigInt` literals as the browser support not that great;
+
 ## [1.0.0] (2022-10-07)
 
 - [enhancement]: `BigInt` used internally for ranks transformations to preserve the correct value even for unsafe integer values;

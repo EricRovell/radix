@@ -8,11 +8,11 @@ import type { Decode, Input, Ranks } from "../types";
 export const parse = (input: Input, decode?: Decode): Ranks | null => {
 	if (typeof input === "number" && Number.isInteger(input)) {
 		const value = Math.abs(input);
-		return toDigits(BigInt(value), 10n);
+		return toDigits(BigInt(value), BigInt(10));
 	}
 
 	if (typeof input === "bigint") {
-		return toDigits(input, 10n);
+		return toDigits(input, BigInt(10));
 	}
 
 	if (typeof input === "string") {
