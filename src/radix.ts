@@ -1,4 +1,4 @@
-import { encode as translate, radixTransform } from "./lib";
+import { encode as translate, radixTransform, checkRadix } from "./lib";
 import { construct } from "./construct";
 import type { Input, Ranks, RadixOptions, Encode } from "./types";
 
@@ -75,8 +75,12 @@ export class Radix {
 	 * Changes the number's radix and returns a new `Radix` instance.
 	 */
 	setRadix(radix: number): Radix {
-		const transformed = radixTransform(this.#ranks, this.radix, radix);
-		return new Radix(transformed, radix, this.#options);
+		if (checkRadix(radix)) {
+			const transformed = radixTransform(this.#ranks, this.radix, radix);
+			return new Radix(transformed, radix, this.#options);
+		}
+
+		return new Radix(0, 0);
 	}
 
 	/**
@@ -84,7 +88,7 @@ export class Radix {
 	 */
 	setRank(value = 0, rank = 0): Radix {
 		if (rank < 0 || rank > this.#ranks.length) {
-			return new Radix();
+			return new Radix(0, 0);
 		}
 
 		// array indexes and ranks have reverse order by comparison

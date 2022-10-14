@@ -1,4 +1,4 @@
-export { checkNumber } from "./validators";
+export { checkNumber, checkRadix } from "./validators";
 export { encode, decode } from "./translate";
 export { parse } from "./parser";
 export { prependZeros } from "./prepend-zeros";

@@ -3,7 +3,7 @@
  * Radix should be positive integer.
  * No unary systems are supported as they are too primitive and complicates code too much.
  */
-function checkRadix(radix: number): boolean {
+export function checkRadix(radix: number): boolean {
 	return Number.isInteger(radix) && radix > 1;
 }
 

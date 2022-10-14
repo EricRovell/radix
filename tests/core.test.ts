@@ -54,6 +54,7 @@ describe("Parsing", () => {
 	});
 	it("Does not parse a bigint with wrong radix", () => {
 		expect(radix(1234n, 2).valid).toBe(false);
+		expect(radix(123, 1).valid).toBe(false);
 	});
 	it("Parses a string", () => {
 		expect(radix("1234").getRanks()).toEqual([ 1, 2, 3, 4 ]);
@@ -144,13 +145,19 @@ describe("Transformations", () => {
 		 */
 		expect(radix([ 7, 6, 2, 1, 1, 7, 7, 5, 5, 5 ], 10).setRadix(2).getRanks()).toEqual([ 1,1,1,0,0,0,1,1,0,0,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,1,0,1,0,0,1,1 ]);
 	});
+	it("Does not transform number radix on wrong input", () => {
+		expect(radix([ 1, 2, 3 ], 10).setRadix(1).valid).toBe(false);
+		expect(radix([ 1, 2, 3 ], 10).setRadix(-5).valid).toBe(false);
+		expect(radix([ 1, 2, 3 ], 10).setRadix(1.25).valid).toBe(false);
+	});
 	it("Changes the rank of the number", () => {
 		expect(radix([ 1, 0, 1 ], 2).setRank().getRanks()).toEqual([ 1, 0, 0 ]);
 		expect(radix([ 1, 0, 1 ], 2).setRank(0).getRanks()).toEqual([ 1, 0, 0 ]);
 		expect(radix([ 1, 0, 1 ], 2).setRank(1, 1).getRanks()).toEqual([ 1, 1, 1 ]);
 		expect(radix([ 4, 0, 5, 7 ], 8).setRank(7, 3).getRanks()).toEqual([ 7, 0, 5, 7 ]);
 		expect(radix([ 1, 0, 1, 0, 1, 1, 1, 0, 1 ], 2).setRank(1, 5).getRanks()).toEqual([ 1, 0, 1, 1, 1, 1, 1, 0, 1 ]);
-		// invalid changes
+	});
+	it("Does not change the radix on wrong input", () => {
 		expect(radix([ 1, 0, 1 ], 2).setRank(4, 1).getRanks()).toEqual([ 0 ]);
 		expect(radix([ 1, 0, 1 ], 2).setRank(1, 8).getRanks()).toEqual([ 0 ]);
 		expect(radix([ 1, 0, 1 ], 2).setRank(1, -1).getRanks()).toEqual([ 0 ]);
