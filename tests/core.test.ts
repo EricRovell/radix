@@ -251,4 +251,15 @@ describe("Primitive value", () => {
 		// @ts-expect-error valueOf
 		expect(input1 + input2).toBe(BigInt(200));
 	});
+	it("Iterates the instance", () => {
+		expect(Array.from(radix([ 1, 2, 3 ], 10)))
+			.toEqual([ [ 3, 0 ], [ 2, 1 ], [ 1, 2 ] ]);
+		expect([ ...radix([ 1, 2, 3 ], 10) ])
+			.toEqual([ [ 3, 0 ], [ 2, 1 ], [ 1, 2 ] ]);
+		expect(Array.from(radix([ 5, 4 ], 10).setRadix(2)))
+			.toEqual([ [ 0, 0 ], [ 1, 1 ], [ 1, 2 ], [ 0, 3 ], [ 1, 4 ], [ 1, 5 ] ]);
+		expect([ ...radix([ 5, 4 ], 10).setRadix(2) ])
+			.toEqual([ [ 0, 0 ], [ 1, 1 ], [ 1, 2 ], [ 0, 3 ], [ 1, 4 ], [ 1, 5 ] ]);
+	});
 });
+

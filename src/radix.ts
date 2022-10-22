@@ -107,6 +107,15 @@ export class Radix {
 	valueOf() {
 		return BigInt(this.setRadix(10).toString());
 	}
+
+	/**
+	 * Specifies the default iterator for a `Radix` instance.
+	 */
+	*[Symbol.iterator]() {
+		for (let i = this.#ranks.length - 1; i >= 0; i--) {
+			yield [ this.#ranks[i], this.#ranks.length - 1 - i ];
+		}
+	}
 }
 
 /**
