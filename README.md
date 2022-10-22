@@ -387,9 +387,19 @@ All constructor options are optional.
   ```
 </details>
 
-## Extending functionality
+## Other features
 
-To extend functionality for your needs, just extend the `Radix` class available at the root path:
+### Coercion
+
+The `Radix` instance supports coercion via `toString()` and `valueOf()` methods. The latter returns a `bigint` decimal representation.
+
+```ts
+radix([ 1, 2, 3 ], 10) + radix([ 7, 7 ], 10) // 200n
+```
+
+### Extedibility
+
+To extend functionality for your needs, extend the `Radix` class available at the root path:
 
 ```ts
 import { Radix } from "@ericrovell/radix";
@@ -400,11 +410,31 @@ class RadixExtended extends Radix {
     // ...
   }
 
-  sum() {
+  getRanksSum() {
     return this.digits.reduce(( acc, digit ) => acc + digit, 0);
   }
 }
 
 const extended = new RadixExtended([ 1, 0, 1, 0 ], 2);
-extended.sum() // -> 2
+extended.getRanksSum() // -> 2
 ```
+
+### Iterability
+
+The `Radix` instance can be iterated via `for ... of` loop to loop through the ranks in powers order:
+
+```ts
+import { radix } from "@ericrovell/radix";
+
+for (const [ rank, power ] of radix([ 1, 2, 3 ])) {
+  console.log(rank, power)
+  // -> [ 3, 0 ], [ 2, 1, ], [ 1, 2 ]
+}
+
+for (const [ rank, power ] of radix([ 5, 4 ], 10).setRadix(2)) {
+  console.log(rank, power)
+  // -> [ 0, 0 ], [ 1, 1 ], [ 1, 2 ], [ 0, 3 ], [ 1, 4 ], [ 1, 5 ]
+}
+```
+
+The same way the `spread` operator can be used, `Array.from()`, and all other methods and functions that operates on iterables.
